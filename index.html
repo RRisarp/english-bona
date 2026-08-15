@@ -150,6 +150,12 @@
   }
   .card:hover { border-color: var(--accent); box-shadow: 0 3px 10px var(--card-shadow); }
   .card.placeholder { background: var(--card-alt); border-style: dashed; border-color: var(--border-dashed); cursor: default; color: var(--text-muted); box-shadow: none; }
+  .card.card-complete { border-color: var(--success-text); position: relative; }
+  .card .complete-badge {
+    position: absolute; top: 10px; right: 10px; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--success-bg); color: var(--success-text); display: flex; align-items: center;
+    justify-content: center; font-size: 12px;
+  }
   .card .icon { font-size: 20px; }
   .card p.title { font-size: 14px; font-weight: 600; margin: 8px 0 2px; font-family: "Fraunces", serif; }
   .card p.sub { font-size: 12px; color: var(--text-secondary); margin: 0; }
@@ -268,12 +274,40 @@ onAuthStateChanged(auth, (user) => {
     status.textContent = "Inloggad som " + (user.displayName || user.email);
     btn.textContent = "Logga ut";
     btn.onclick = () => signOut(auth);
+    loadProgress();
   } else {
     status.textContent = "";
     btn.textContent = "Logga in med Google";
     btn.onclick = window.loginWithGoogle;
+    progressByCategory = {};
+    renderHub();
   }
 });
+
+// categoryId -> Set av exerciseId som gjorts minst en gång (för hub-kortens progression)
+let progressByCategory = {};
+
+async function loadProgress() {
+  if (!currentUser) return;
+  try {
+    const q = query(
+      collection(db, "students", currentUser.uid, "attempts"),
+      where("subject", "==", "engelska")
+    );
+    const snap = await getDocs(q);
+    const map = {};
+    snap.forEach(docSnap => {
+      const d = docSnap.data();
+      if (!d.categoryId || !d.exerciseId) return;
+      if (!map[d.categoryId]) map[d.categoryId] = new Set();
+      map[d.categoryId].add(d.exerciseId);
+    });
+    progressByCategory = map;
+    renderHub();
+  } catch (e) {
+    console.error("Kunde inte hämta progression:", e);
+  }
+}
 
 // Sparar ett övningsförsök som ett EGET dokument (ingen historik skrivs över).
 async function saveAttempt(categoryId, exerciseId, result, extra) {
@@ -5453,24 +5487,30 @@ function renderHub() {
   CATEGORIES.forEach(cat => {
     const built = !!cat.exercises;
     const el = document.createElement("button");
-    el.className = "card" + (built ? "" : " placeholder");
+    const done = built ? (progressByCategory[cat.id] ? progressByCategory[cat.id].size : 0) : 0;
+    const total = built ? cat.exercises.length : 0;
+    const complete = built && currentUser && done >= total && total > 0;
+    el.className = "card" + (built ? "" : " placeholder") + (complete ? " card-complete" : "");
     el.innerHTML = `
       <div class="icon">${cat.icon}</div>
       <p class="title">${cat.title}</p>
-      <p class="sub">${built ? doneCountLabel(cat) : "Innehåll kommer snart"}</p>
+      <p class="sub">${built ? doneCountLabel(cat, done) : "Innehåll kommer snart"}</p>
+      ${complete ? `<span class="complete-badge">✓</span>` : ""}
     `;
     if (built) el.onclick = () => showCategory(cat.id);
     grid.appendChild(el);
   });
 }
 
-function doneCountLabel(cat) {
-  return cat.exercises.length + " övningar";
+function doneCountLabel(cat, done) {
+  if (!currentUser) return cat.exercises.length + " övningar";
+  return done + " av " + cat.exercises.length + " övningar klara";
 }
 
 window.showHub = function () {
   document.getElementById("view-hub").style.display = "block";
   document.getElementById("view-category").style.display = "none";
+  loadProgress();
 };
 
 // ============ RENDERING: KATEGORISIDA ============
@@ -5794,6 +5834,7 @@ function sceneSVG(kind, position) {
   const W = 260, H = 170, floorY = 150;
   const tableX = 90, tableY = 105, tableW = 80, tableH = 10, legH = 35;
   const boxX = 95, boxY = 80, boxW = 70, boxH = 55;
+  const farFloorY = 72;
 
   const table = `
     <rect x="${tableX}" y="${tableY}" width="${tableW}" height="${tableH}" rx="2" fill="var(--accent-2)"/>
@@ -5818,12 +5859,13 @@ function sceneSVG(kind, position) {
   }
 
   let extra = "";
+  let farLine = "";
   if (kind === "cat") {
     const groundY = floorY;
     if (position === "on") extra = table + cat(tableX + tableW / 2, tableY - 6, 0.9);
     else if (position === "under") extra = table + cat(tableX + tableW / 2, groundY - 8, 0.85);
     else if (position === "next_to") extra = table + cat(tableX + tableW + 34, groundY - 8, 1);
-    else if (position === "behind") extra = cat(tableX + tableW / 2, tableY - 2, 0.65) + table;
+    else if (position === "behind") extra = cat(tableX + 9, groundY - 8, 0.8) + table;
     else if (position === "in_front_of") extra = table + cat(tableX + tableW / 2, groundY + 6, 1.1);
   } else if (kind === "ball") {
     if (position === "inside") extra = box + ball(boxX + boxW / 2, boxY + boxH / 2 + 8);
