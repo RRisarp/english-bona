@@ -28,6 +28,22 @@
     - "para"          (matcha två spalter)
     - "santfalskt"    (sant/falskt)
     - "oversattning"  (skriv översättning, godkänner flera svar)
+
+  Övningar med flera delfrågor i samma dragspel (typerna flerval_inline,
+  lucktext_hint, lucktext_bank, lucktext_smallset, korrigera, ordna,
+  flerval_abc) har en `items`-lista. Rättas alla på en gång med en
+  "Rätta allt"-knapp.
+
+  FÖRKLARING NÄR SVARET BLIR FEL:
+  - Lägg till `"rule": "din förklaring här"` på ÖVNINGS-nivå (samma
+    nivå som `"type"` och `"items"`) för en förklaring som gäller alla
+    frågor i den övningen.
+  - Lägg till `"why": "din förklaring här"` på en ENSKILD FRÅGA inuti
+    `items`-listan om just den frågan behöver en egen förklaring
+    istället för (eller utöver) övningens gemensamma. `why` vinner
+    alltid över `rule` om båda finns för samma fråga.
+  - Inget av fälten är obligatoriskt – utan dem visas bara rätt svar,
+    som innan.
   =====================================================================
 -->
 
@@ -333,26 +349,28 @@ const CATEGORIES = [
     "id": "beskriva",
     "icon": "🏙",
     "title": "Beskriva människor, platser och saker",
-  "explanation": {
-   "text": "Förklaring och exempel för den här kategorin kommer snart."
-  },
+    "explanation": {
+      "text": "Förklaring och exempel för den här kategorin kommer snart."
+    },
     "exercises": [
       {
         "id": "beskriva-1",
         "title": "Övning 1",
-        "instruction": "Välj rätt form av verbet.",
+        "instruction": "Välj rätt form: is eller are.",
+        "rule": "DEMO – ta bort eller ändra: \"is\" hör ihop med ental (he/she/it/en sak), \"are\" med flertal (they/vi/flera saker).",
         "type": "flerval_inline",
         "items": [
           {
-            "sentence": "My new colleague ___ extremely ambitious.",
+            "sentence": "My brother ___ a teacher.",
             "options": [
               "is",
               "are"
             ],
-            "correctIndex": 0
+            "correctIndex": 0,
+            "why": "DEMO – ta bort eller ändra: \"brother\" är en person (ental), därför \"is\"."
           },
           {
-            "sentence": "There ___ several affordable cafés near the university.",
+            "sentence": "These shoes ___ very comfortable.",
             "options": [
               "is",
               "are"
@@ -360,23 +378,39 @@ const CATEGORIES = [
             "correctIndex": 1
           },
           {
-            "sentence": "Our apartment ___ a surprisingly large balcony.",
+            "sentence": "The book ___ on the table.",
             "options": [
-              "have",
-              "has"
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "Her parents ___ from Italy.",
+            "options": [
+              "is",
+              "are"
             ],
             "correctIndex": 1
           },
           {
-            "sentence": "The people in the queue ___ becoming impatient.",
+            "sentence": "This exercise ___ quite easy.",
             "options": [
-              "was",
-              "were"
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "Those houses ___ really old.",
+            "options": [
+              "is",
+              "are"
             ],
             "correctIndex": 1
           },
           {
-            "sentence": "There ___ too much noise in this part of the building.",
+            "sentence": "The weather ___ nice today.",
             "options": [
               "is",
               "are"
@@ -384,23 +418,15 @@ const CATEGORIES = [
             "correctIndex": 0
           },
           {
-            "sentence": "My neighbours ___ three electric scooters outside their door.",
+            "sentence": "My friends ___ at the cinema.",
             "options": [
-              "have",
-              "has"
+              "is",
+              "are"
             ],
-            "correctIndex": 0
+            "correctIndex": 1
           },
           {
-            "sentence": "The atmosphere at the concert ___ intense.",
-            "options": [
-              "was",
-              "were"
-            ],
-            "correctIndex": 0
-          },
-          {
-            "sentence": "This neighbourhood ___ popular with young professionals.",
+            "sentence": "The soup ___ too salty.",
             "options": [
               "is",
               "are"
@@ -408,181 +434,381 @@ const CATEGORIES = [
             "correctIndex": 0
           },
           {
-            "sentence": "There ___ a charging station next to the entrance.",
+            "sentence": "Our neighbours ___ very friendly.",
             "options": [
               "is",
               "are"
             ],
-            "correctIndex": 0
-          },
-          {
-            "sentence": "The main problem ___ the extremely high rent.",
-            "options": [
-              "is",
-              "are"
-            ],
-            "correctIndex": 0
+            "correctIndex": 1
           }
         ]
       },
       {
         "id": "beskriva-2",
         "title": "Övning 2",
-        "instruction": "Välj adjektivet som passar bäst i varje mening.",
-        "type": "lucktext_bank",
+        "instruction": "Välj rätt form: there is eller there are.",
+        "type": "flerval_inline",
         "items": [
           {
-            "sentence": "The nightclub was so __________ that we could hardly move.",
-            "accepted": [
-              "crowded"
-            ]
+            "sentence": "There ___ a cat in the garden.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "The rent is surprisingly __________ considering the location.",
-            "accepted": [
-              "affordable"
-            ]
+            "sentence": "There ___ many people at the party.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 1
           },
           {
-            "sentence": "My phone still works, but the software feels completely __________.",
-            "accepted": [
-              "outdated"
-            ]
+            "sentence": "There ___ some milk in the fridge.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "Unfortunately, my colleague became __________ when I was promoted.",
-            "accepted": [
-              "envious"
-            ]
+            "sentence": "There ___ two windows in this room.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 1
           },
           {
-            "sentence": "The new sports centre is genuinely __________. It has three pools and a climbing wall.",
-            "accepted": [
-              "impressive"
-            ]
+            "sentence": "There ___ a problem with my order.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "After working two late shifts, Amir felt completely __________.",
-            "accepted": [
-              "exhausted"
-            ]
+            "sentence": "There ___ several reasons for the delay.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 1
           },
           {
-            "sentence": "The situation became __________ when two people arrived wearing the same outfit.",
-            "accepted": [
-              "awkward"
-            ]
+            "sentence": "There ___ no bread left.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "The flat looks small from outside, but it is actually quite __________.",
-            "accepted": [
-              "spacious"
-            ]
+            "sentence": "There ___ a lot of traffic this morning.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "The bus service is usually __________, even during the winter.",
-            "accepted": [
-              "reliable"
-            ]
+            "sentence": "There ___ many students in the class.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 1
           },
           {
-            "sentence": "Living close to both work and the train station is extremely __________.",
-            "accepted": [
-              "convenient"
-            ]
+            "sentence": "There ___ an important meeting tomorrow.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
           }
-        ],
-        "bank": [
-          "crowded",
-          "reliable",
-          "awkward",
-          "spacious",
-          "envious",
-          "outdated",
-          "convenient",
-          "exhausted",
-          "impressive",
-          "affordable"
         ]
       },
       {
         "id": "beskriva-3",
         "title": "Övning 3",
-        "instruction": "Välj rätt preposition för var sakerna befinner sig.",
-        "type": "lucktext_bank",
+        "instruction": "Välj rätt form: have eller has.",
+        "type": "flerval_inline",
         "items": [
           {
-            "sentence": "The pharmacy is __________ the supermarket and the bank.",
-            "accepted": [
-              "between"
-            ]
+            "sentence": "My apartment ___ a small balcony.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 1
           },
           {
-            "sentence": "Someone left an electric scooter __________ the main entrance.",
-            "accepted": [
-              "in front of"
-            ]
+            "sentence": "I ___ two brothers.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "The emergency instructions are displayed __________ the fire alarm.",
-            "accepted": [
-              "below"
-            ]
+            "sentence": "She ___ a new phone.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 1
           },
           {
-            "sentence": "There is a small courtyard __________ the building.",
-            "accepted": [
-              "behind"
-            ]
+            "sentence": "We ___ a lot of homework today.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "Our office is directly __________ the train station.",
-            "accepted": [
-              "opposite"
-            ]
+            "sentence": "The house ___ four bedrooms.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 1
           },
           {
-            "sentence": "The bicycle storage room is __________ the basement.",
-            "accepted": [
-              "inside"
-            ]
+            "sentence": "They ___ a dog and a cat.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "A security camera is mounted __________ the door.",
-            "accepted": [
-              "above"
-            ]
+            "sentence": "He ___ a meeting at nine.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 1
           },
           {
-            "sentence": "The receptionist is sitting __________ the glass wall.",
-            "accepted": [
-              "next to"
-            ]
+            "sentence": "My parents ___ a car.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "There is a late-night shop __________ my apartment.",
-            "accepted": [
-              "near"
-            ]
+            "sentence": "This car ___ a big engine.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 1
           },
           {
-            "sentence": "The delivery driver is waiting __________ the building, not in the lobby.",
-            "accepted": [
-              "outside 2 berätta om vardag och vanor"
-            ]
+            "sentence": "You ___ a good point.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 0
           }
-        ],
-        "bank": [
-          "behind",
-          "between",
-          "opposite",
-          "above",
-          "below",
-          "next to",
-          "inside",
-          "outside",
-          "near",
-          "in front of"
+        ]
+      },
+      {
+        "id": "beskriva-4",
+        "title": "Övning 4",
+        "instruction": "Titta på bilden och välj rätt preposition.",
+        "type": "bild_flerval",
+        "items": [
+          {
+            "object": "cat",
+            "position": "on",
+            "question": "Var är katten?",
+            "options": [
+              "on the table",
+              "under the table",
+              "next to the table",
+              "behind the table"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "object": "cat",
+            "position": "under",
+            "question": "Var är katten?",
+            "options": [
+              "on the table",
+              "under the table",
+              "in front of the table",
+              "next to the table"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "object": "cat",
+            "position": "next_to",
+            "question": "Var är katten?",
+            "options": [
+              "under the table",
+              "behind the table",
+              "next to the table",
+              "on the table"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "object": "cat",
+            "position": "behind",
+            "question": "Var är katten?",
+            "options": [
+              "in front of the table",
+              "behind the table",
+              "under the table",
+              "next to the table"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "object": "cat",
+            "position": "in_front_of",
+            "question": "Var är katten?",
+            "options": [
+              "behind the table",
+              "under the table",
+              "in front of the table",
+              "on the table"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "object": "ball",
+            "position": "inside",
+            "question": "Var är bollen?",
+            "options": [
+              "inside the box",
+              "above the box",
+              "below the box",
+              "next to the box"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "object": "ball",
+            "position": "above",
+            "question": "Var är bollen?",
+            "options": [
+              "inside the box",
+              "below the box",
+              "above the box",
+              "next to the box"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "object": "ball",
+            "position": "below",
+            "question": "Var är bollen?",
+            "options": [
+              "above the box",
+              "inside the box",
+              "below the box",
+              "next to the box"
+            ],
+            "correctIndex": 2
+          }
+        ]
+      },
+      {
+        "id": "beskriva-5",
+        "title": "Övning 5",
+        "instruction": "Välj det adjektiv som passar bäst i meningen.",
+        "type": "flerval_inline",
+        "items": [
+          {
+            "sentence": "The nightclub was so ___ that we could hardly move.",
+            "options": [
+              "crowded",
+              "spacious"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "Considering the location, the rent felt surprisingly ___.",
+            "options": [
+              "affordable",
+              "outdated"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "My phone still works, but the software feels completely ___.",
+            "options": [
+              "outdated",
+              "awkward"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "My colleague became visibly ___ when I got the promotion instead of her.",
+            "options": [
+              "envious",
+              "grateful"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "The new sports centre is genuinely ___ — it has three pools and a climbing wall.",
+            "options": [
+              "impressive",
+              "convenient"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "After two late shifts in a row, Amir felt completely ___.",
+            "options": [
+              "exhausted",
+              "embarrassed"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "The situation became quite ___ when two guests arrived wearing the same outfit.",
+            "options": [
+              "awkward",
+              "impressive"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "The flat looks small from outside, but it's actually very ___ inside.",
+            "options": [
+              "spacious",
+              "crowded"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "Even in winter, the night bus is usually ___, arriving within a few minutes of schedule.",
+            "options": [
+              "reliable",
+              "affordable"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "Living within walking distance of both work and the station is extremely ___.",
+            "options": [
+              "convenient",
+              "reliable"
+            ],
+            "correctIndex": 0
+          }
         ]
       }
     ]
@@ -591,9 +817,9 @@ const CATEGORIES = [
     "id": "vanor",
     "icon": "🔁",
     "title": "Beskriva vanor",
-  "explanation": {
-   "text": "Förklaring och exempel för den här kategorin kommer snart."
-  },
+    "explanation": {
+      "text": "Förklaring och exempel för den här kategorin kommer snart."
+    },
     "exercises": [
       {
         "id": "vanor-1",
@@ -686,88 +912,88 @@ const CATEGORIES = [
       {
         "id": "vanor-2",
         "title": "Övning 2",
-        "instruction": "Skriv om meningen och placera ordet inom parentes på rätt plats.",
-        "type": "korrigera",
+        "instruction": "Välj den mening där frekvensordet står på rätt plats.",
+        "type": "flerval_inline",
         "items": [
           {
-            "sentence": "I miss the morning bus.",
-            "hint": "sometimes",
-            "accepted": [
-              "i sometimes miss the morning bus"
+            "sentence": "___",
+            "options": [
+              "I sometimes miss the morning bus.",
+              "I miss sometimes the morning bus."
             ],
-            "correctDisplay": "I sometimes miss the morning bus."
+            "correctIndex": 0
           },
           {
-            "sentence": "Lina is tired after her night shifts.",
-            "hint": "often",
-            "accepted": [
-              "lina is often tired after her night shifts"
+            "sentence": "___",
+            "options": [
+              "Lina is after her night shifts often tired.",
+              "Lina is often tired after her night shifts."
             ],
-            "correctDisplay": "Lina is often tired after her night shifts."
+            "correctIndex": 1
           },
           {
-            "sentence": "We order takeaway on weekdays.",
-            "hint": "rarely",
-            "accepted": [
-              "we rarely order takeaway on weekdays"
+            "sentence": "___",
+            "options": [
+              "We rarely order takeaway on weekdays.",
+              "We order rarely takeaway on weekdays."
             ],
-            "correctDisplay": "We rarely order takeaway on weekdays."
+            "correctIndex": 0
           },
           {
-            "sentence": "My landlord answers emails quickly.",
-            "hint": "",
-            "accepted": [
-              "my landlord never answers emails quickly"
+            "sentence": "___",
+            "options": [
+              "My landlord answers never emails quickly.",
+              "My landlord never answers emails quickly."
             ],
-            "correctDisplay": "My landlord never answers emails quickly."
+            "correctIndex": 1
           },
           {
-            "sentence": "They are friendly to new employees.",
-            "hint": "usually",
-            "accepted": [
-              "they are usually friendly to new employees"
+            "sentence": "___",
+            "options": [
+              "They are usually friendly to new employees.",
+              "They usually are friendly to new employees."
             ],
-            "correctDisplay": "They are usually friendly to new employees."
+            "correctIndex": 0
           },
           {
-            "sentence": "I go to bed before midnight.",
-            "hint": "almost** **always",
-            "accepted": [
-              "i almost always go to bed before midnight"
+            "sentence": "___",
+            "options": [
+              "I almost always go to bed before midnight.",
+              "I go almost always to bed before midnight."
             ],
-            "correctDisplay": "I almost always go to bed before midnight."
+            "correctIndex": 0
           },
           {
-            "sentence": "My classmates discuss politics during lunch.",
-            "hint": "sometimes",
-            "accepted": [
-              "my classmates sometimes discuss politics during lunch"
+            "sentence": "___",
+            "options": [
+              "My classmates discuss sometimes politics during lunch.",
+              "My classmates sometimes discuss politics during lunch."
             ],
-            "correctDisplay": "My classmates sometimes discuss politics during lunch."
+            "correctIndex": 1
           },
           {
-            "sentence": "Karim forgets his headphones at home.",
-            "hint": "hardly** **ever",
-            "accepted": [
-              "karim hardly ever forgets his headphones at home"
+            "sentence": "___",
+            "options": [
+              "Karim hardly ever forgets his headphones at home.",
+              "Karim forgets hardly ever his headphones at home."
             ],
-            "correctDisplay": "Karim hardly ever forgets his headphones at home."
+            "correctIndex": 0
           },
           {
-            "sentence": "The buses are crowded at this time.",
-            "hint": "usually",
-            "accepted": [
-              "the buses are usually crowded at this time"
+            "sentence": "___",
+            "options": [
+              "The buses usually are crowded at this time.",
+              "The buses are usually crowded at this time."
             ],
-            "correctDisplay": "The buses are usually crowded at this time."
+            "correctIndex": 1
           },
           {
-            "sentence": "I feel productive on Monday mornings.",
-            "hint": "",
-            "accepted": [
-              "i do not often feel productive on monday mornings"
+            "sentence": "___",
+            "options": [
+              "I do not often feel productive on Monday mornings.",
+              "I do not feel often productive on Monday mornings."
             ],
-            "correctDisplay": "I do not often feel productive on Monday mornings."
+            "correctIndex": 0
           }
         ]
       },
@@ -853,9 +1079,253 @@ const CATEGORIES = [
             "sentence": "These headphones block all outside noise.",
             "hint": "",
             "accepted": [
-              "these headphones do not block all outside noise 3 berätta vad som händer just nu"
+              "these headphones do not block all outside noise"
             ],
-            "correctDisplay": "These headphones do not block all outside noise.\n\n3. Berätta vad som händer just nu"
+            "correctDisplay": "These headphones do not block all outside noise."
+          }
+        ]
+      },
+      {
+        "id": "vanor-4",
+        "title": "Övning 4",
+        "instruction": "Sätt orden i rätt ordning så det blir en korrekt mening.",
+        "type": "ordna",
+        "items": [
+          {
+            "chips": [
+              "always",
+              "coffee",
+              "I",
+              "drink",
+              "in the morning"
+            ],
+            "target": "I always drink coffee in the morning.",
+            "correctOrder": [
+              2,
+              0,
+              3,
+              1,
+              4
+            ]
+          },
+          {
+            "chips": [
+              "usually",
+              "she",
+              "the bus",
+              "takes",
+              "to work"
+            ],
+            "target": "She usually takes the bus to work.",
+            "correctOrder": [
+              1,
+              0,
+              3,
+              2,
+              4
+            ]
+          },
+          {
+            "chips": [
+              "never",
+              "they",
+              "breakfast",
+              "skip"
+            ],
+            "target": "They never skip breakfast.",
+            "correctOrder": [
+              1,
+              0,
+              3,
+              2
+            ]
+          },
+          {
+            "chips": [
+              "often",
+              "we",
+              "at the weekend",
+              "cook"
+            ],
+            "target": "We often cook at the weekend.",
+            "correctOrder": [
+              1,
+              0,
+              3,
+              2
+            ]
+          },
+          {
+            "chips": [
+              "rarely",
+              "he",
+              "before nine",
+              "wakes up"
+            ],
+            "target": "He rarely wakes up before nine.",
+            "correctOrder": [
+              1,
+              0,
+              3,
+              2
+            ]
+          },
+          {
+            "chips": [
+              "sometimes",
+              "I",
+              "on Fridays",
+              "work late"
+            ],
+            "target": "I sometimes work late on Fridays.",
+            "correctOrder": [
+              1,
+              0,
+              3,
+              2
+            ]
+          },
+          {
+            "chips": [
+              "every day",
+              "the shop",
+              "closes",
+              "at six"
+            ],
+            "target": "The shop closes at six every day.",
+            "correctOrder": [
+              1,
+              2,
+              3,
+              0
+            ]
+          },
+          {
+            "chips": [
+              "usually",
+              "my parents",
+              "the news",
+              "watch",
+              "in the evening"
+            ],
+            "target": "My parents usually watch the news in the evening.",
+            "correctOrder": [
+              1,
+              0,
+              3,
+              2,
+              4
+            ]
+          },
+          {
+            "chips": [
+              "hardly ever",
+              "she",
+              "the gym",
+              "goes to"
+            ],
+            "target": "She hardly ever goes to the gym.",
+            "correctOrder": [
+              1,
+              0,
+              3,
+              2
+            ]
+          },
+          {
+            "chips": [
+              "always",
+              "I",
+              "my keys",
+              "check",
+              "before leaving"
+            ],
+            "target": "I always check my keys before leaving.",
+            "correctOrder": [
+              1,
+              0,
+              3,
+              2,
+              4
+            ]
+          }
+        ]
+      },
+      {
+        "id": "vanor-5",
+        "title": "Övning 5",
+        "instruction": "Skriv verbet inom parentes i rätt presensform.",
+        "type": "lucktext_hint",
+        "items": [
+          {
+            "sentence": "She ___ to work by bike every day.",
+            "hint": "cycle",
+            "accepted": [
+              "cycles"
+            ]
+          },
+          {
+            "sentence": "He ___ his teeth twice a day.",
+            "hint": "brush",
+            "accepted": [
+              "brushes"
+            ]
+          },
+          {
+            "sentence": "I ___ up at seven every morning.",
+            "hint": "get",
+            "accepted": [
+              "get"
+            ]
+          },
+          {
+            "sentence": "My sister ___ the dog every evening.",
+            "hint": "walk",
+            "accepted": [
+              "walks"
+            ]
+          },
+          {
+            "sentence": "We ___ dinner together on Sundays.",
+            "hint": "have",
+            "accepted": [
+              "have"
+            ]
+          },
+          {
+            "sentence": "The shop ___ at nine.",
+            "hint": "open",
+            "accepted": [
+              "opens"
+            ]
+          },
+          {
+            "sentence": "He ___ two languages fluently.",
+            "hint": "speak",
+            "accepted": [
+              "speaks"
+            ]
+          },
+          {
+            "sentence": "I ___ my emails before breakfast.",
+            "hint": "check",
+            "accepted": [
+              "check"
+            ]
+          },
+          {
+            "sentence": "She ___ to the gym after work.",
+            "hint": "go",
+            "accepted": [
+              "goes"
+            ]
+          },
+          {
+            "sentence": "They ___ the same route to school.",
+            "hint": "take",
+            "accepted": [
+              "take"
+            ]
           }
         ]
       }
@@ -865,81 +1335,81 @@ const CATEGORIES = [
     "id": "nuet",
     "icon": "▶",
     "title": "Berätta vad som händer just nu",
-  "explanation": {
-   "text": "Förklaring och exempel för den här kategorin kommer snart."
-  },
+    "explanation": {
+      "text": "Förklaring och exempel för den här kategorin kommer snart."
+    },
     "exercises": [
       {
         "id": "nuet-1",
         "title": "Övning 1",
-        "instruction": "Skriv verbet inom parentes i rätt form (pågående form).",
+        "instruction": "Skriv verbet inom parentes i pågående form.",
         "type": "lucktext_hint",
         "items": [
           {
-            "sentence": "I __________ for the train, but it is delayed again.",
+            "sentence": "I ___ for the train, but it is delayed again.",
             "hint": "wait",
             "accepted": [
               "am waiting"
             ]
           },
           {
-            "sentence": "Two people __________ loudly outside the restaurant.",
+            "sentence": "Two people ___ loudly outside the restaurant.",
             "hint": "argue",
             "accepted": [
               "are arguing"
             ]
           },
           {
-            "sentence": "My phone __________ because someone keeps sending messages.",
+            "sentence": "My phone ___ because someone keeps sending messages.",
             "hint": "vibrate",
             "accepted": [
               "is vibrating"
             ]
           },
           {
-            "sentence": "We __________ the final episode tonight.",
+            "sentence": "We ___ the final episode tonight.",
             "hint": "watch",
             "accepted": [
               "are watching"
             ]
           },
           {
-            "sentence": "The company __________ several new employees this month.",
+            "sentence": "The company ___ several new employees this month.",
             "hint": "hire",
             "accepted": [
               "is hiring"
             ]
           },
           {
-            "sentence": "The DJ __________ a song that everyone recognises.",
-            "hint": "",
+            "sentence": "The DJ ___ a song that everyone recognises.",
+            "hint": "play",
             "accepted": [
               "is playing"
             ]
           },
           {
-            "sentence": "My flatmate __________ for a new apartment at the moment.",
-            "hint": "",
+            "sentence": "My flatmate ___ for a new apartment at the moment.",
+            "hint": "look",
             "accepted": [
               "is looking"
             ]
           },
           {
-            "sentence": "More people __________ electric cars than before.",
+            "sentence": "More people ___ electric cars than before.",
             "hint": "buy",
             "accepted": [
               "are buying"
             ]
           },
           {
-            "sentence": "I __________ to concentrate, but the music is too loud.",
-            "hint": "",
+            "sentence": "I ___ to concentrate, but the music is too loud.",
+            "hint": "try",
             "accepted": [
               "am trying"
             ]
           },
           {
-            "sentence": "The city __________ a new cycle path near the university.",
+            "sentence": "The city ___ a new cycle path near the university.",
             "hint": "build",
             "accepted": [
               "is building"
@@ -950,7 +1420,7 @@ const CATEGORIES = [
       {
         "id": "nuet-2",
         "title": "Övning 2",
-        "instruction": "Är det en vana eller något som händer just nu? Välj rätt form.",
+        "instruction": "Vana eller just nu? Välj rätt alternativ.",
         "type": "flerval_inline",
         "items": [
           {
@@ -1050,6 +1520,7 @@ const CATEGORIES = [
               "a job",
               "applying"
             ],
+            "target": "I am currently applying for a job.",
             "correctOrder": [
               2,
               3,
@@ -1057,8 +1528,7 @@ const CATEGORIES = [
               5,
               1,
               4
-            ],
-            "target": "I am currently applying for a job."
+            ]
           },
           {
             "chips": [
@@ -1068,14 +1538,14 @@ const CATEGORIES = [
               "the venue",
               "waiting"
             ],
+            "target": "People are waiting outside the venue.",
             "correctOrder": [
               1,
               2,
               4,
               0,
               3
-            ],
-            "target": "People are waiting outside the venue."
+            ]
           },
           {
             "chips": [
@@ -1084,13 +1554,13 @@ const CATEGORIES = [
               "everyone",
               "laughing"
             ],
+            "target": "Why is everyone laughing?",
             "correctOrder": [
               1,
               0,
               2,
               3
-            ],
-            "target": "Why is everyone laughing?"
+            ]
           },
           {
             "chips": [
@@ -1099,13 +1569,13 @@ const CATEGORIES = [
               "are",
               "again"
             ],
+            "target": "Prices are rising again.",
             "correctOrder": [
               0,
               2,
               1,
               3
-            ],
-            "target": "Prices are rising again."
+            ]
           },
           {
             "chips": [
@@ -1115,14 +1585,14 @@ const CATEGORIES = [
               "is",
               "working"
             ],
+            "target": "She is not working tonight.",
             "correctOrder": [
               2,
               3,
               0,
               4,
               1
-            ],
-            "target": "She is not working tonight."
+            ]
           },
           {
             "chips": [
@@ -1132,14 +1602,14 @@ const CATEGORIES = [
               "listening",
               "me"
             ],
+            "target": "Are you listening to me?",
             "correctOrder": [
               1,
               0,
               3,
               2,
               4
-            ],
-            "target": "Are you listening to me?"
+            ]
           },
           {
             "chips": [
@@ -1148,13 +1618,13 @@ const CATEGORIES = [
               "more complicated",
               "is"
             ],
+            "target": "The situation is becoming more complicated.",
             "correctOrder": [
               1,
               3,
               0,
               2
-            ],
-            "target": "The situation is becoming more complicated."
+            ]
           },
           {
             "chips": [
@@ -1163,13 +1633,13 @@ const CATEGORIES = [
               "a weekend trip",
               "are"
             ],
+            "target": "My friends are planning a weekend trip.",
             "correctOrder": [
               0,
               3,
               1,
               2
-            ],
-            "target": "My friends are planning a weekend trip."
+            ]
           },
           {
             "chips": [
@@ -1178,13 +1648,13 @@ const CATEGORIES = [
               "it",
               "is"
             ],
+            "target": "It is still raining.",
             "correctOrder": [
               2,
               3,
               1,
               0
-            ],
-            "target": "It is still raining."
+            ]
           },
           {
             "chips": [
@@ -1193,13 +1663,179 @@ const CATEGORIES = [
               "its rules",
               "is"
             ],
+            "target": "The company is changing its rules.",
             "correctOrder": [
               0,
               3,
               1,
               2
+            ]
+          }
+        ]
+      },
+      {
+        "id": "nuet-4",
+        "title": "Övning 4",
+        "instruction": "Välj rätt form: am, is eller are.",
+        "type": "flerval_inline",
+        "items": [
+          {
+            "sentence": "I ___ reading a really good book at the moment.",
+            "options": [
+              "am",
+              "is"
             ],
-            "target": "The company is changing its rules.\n\n4. Berätta vad som hände"
+            "correctIndex": 0
+          },
+          {
+            "sentence": "She ___ cooking dinner right now.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "They ___ painting the fence this weekend.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "We ___ planning a trip to Norway.",
+            "options": [
+              "am",
+              "are"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "He ___ fixing his bike in the garage.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "I ___ learning to play the guitar.",
+            "options": [
+              "am",
+              "is"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "The kids ___ playing in the garden.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "My sister ___ studying for her exams.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "You ___ doing a great job.",
+            "options": [
+              "are",
+              "is"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "It ___ getting colder every day.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
+          }
+        ]
+      },
+      {
+        "id": "nuet-5",
+        "title": "Övning 5",
+        "instruction": "Skriv verbet inom parentes i pågående form. Var extra uppmärksam på stavningen.",
+        "type": "lucktext_hint",
+        "items": [
+          {
+            "sentence": "I ___ a new short story.",
+            "hint": "write",
+            "accepted": [
+              "am writing"
+            ]
+          },
+          {
+            "sentence": "He ___ on the sofa right now.",
+            "hint": "sit",
+            "accepted": [
+              "is sitting"
+            ]
+          },
+          {
+            "sentence": "They ___ down the street.",
+            "hint": "run",
+            "accepted": [
+              "are running"
+            ]
+          },
+          {
+            "sentence": "She ___ a cake for the party.",
+            "hint": "make",
+            "accepted": [
+              "is making"
+            ]
+          },
+          {
+            "sentence": "We ___ a decision about the flat.",
+            "hint": "make",
+            "accepted": [
+              "are making"
+            ]
+          },
+          {
+            "sentence": "I ___ my bag for the trip.",
+            "hint": "pack",
+            "accepted": [
+              "am packing"
+            ]
+          },
+          {
+            "sentence": "He ___ his homework at the kitchen table.",
+            "hint": "do",
+            "accepted": [
+              "is doing"
+            ]
+          },
+          {
+            "sentence": "The children ___ in the pool.",
+            "hint": "swim",
+            "accepted": [
+              "are swimming"
+            ]
+          },
+          {
+            "sentence": "She ___ her plans for next year.",
+            "hint": "plan",
+            "accepted": [
+              "is planning"
+            ]
+          },
+          {
+            "sentence": "I ___ this puzzle for an hour.",
+            "hint": "try",
+            "accepted": [
+              "am trying"
+            ]
           }
         ]
       }
@@ -1209,84 +1845,84 @@ const CATEGORIES = [
     "id": "berata",
     "icon": "⏱",
     "title": "Berätta vad som hänt",
-  "explanation": {
-   "text": "Förklaring och exempel för den här kategorin kommer snart."
-  },
+    "explanation": {
+      "text": "Förklaring och exempel för den här kategorin kommer snart."
+    },
     "exercises": [
       {
         "id": "berata-1",
         "title": "Övning 1",
-        "instruction": "Skriv verbet inom parentes i dåtid.",
+        "instruction": "Skriv verbet inom parentes i dåtid (regelbundna verb, -ed).",
         "type": "lucktext_hint",
         "items": [
           {
-            "sentence": "We __________ the last train and had to take a taxi.",
-            "hint": "",
+            "sentence": "I ___ to the shop after work.",
+            "hint": "walk",
             "accepted": [
-              "missed"
+              "walked"
             ]
           },
           {
-            "sentence": "My colleague __________ me about the change yesterday.",
-            "hint": "tell",
+            "sentence": "She ___ the door quietly.",
+            "hint": "close",
             "accepted": [
-              "told"
+              "closed"
             ]
           },
           {
-            "sentence": "I __________ my headphones at the gym.",
-            "hint": "lose",
+            "sentence": "We ___ for the bus for twenty minutes.",
+            "hint": "wait",
             "accepted": [
-              "lost"
+              "waited"
             ]
           },
           {
-            "sentence": "The concert __________ much later than expected.",
-            "hint": "",
+            "sentence": "He ___ his opinion after the meeting.",
+            "hint": "change",
+            "accepted": [
+              "changed"
+            ]
+          },
+          {
+            "sentence": "They ___ the project last week.",
+            "hint": "finish",
             "accepted": [
               "finished"
             ]
           },
           {
-            "sentence": "Sara __________ a new laptop during the sale.",
-            "hint": "buy",
+            "sentence": "I ___ very hard for the exam.",
+            "hint": "study",
             "accepted": [
-              "bought"
+              "studied"
             ]
           },
           {
-            "sentence": "Someone __________ my bicycle during the night.",
-            "hint": "steal",
+            "sentence": "The dog ___ at the mailman.",
+            "hint": "bark",
             "accepted": [
-              "stole"
+              "barked"
             ]
           },
           {
-            "sentence": "The restaurant __________ our booking by mistake.",
-            "hint": "cancel",
-            "accepted": [
-              "cancelled"
-            ]
-          },
-          {
-            "sentence": "I __________ an old classmate at the supermarket.",
-            "hint": "see",
-            "accepted": [
-              "saw"
-            ]
-          },
-          {
-            "sentence": "They __________ the entire series in one weekend.",
+            "sentence": "We ___ the match on TV.",
             "hint": "watch",
             "accepted": [
               "watched"
             ]
           },
           {
-            "sentence": "The discussion __________ surprisingly heated.",
-            "hint": "",
+            "sentence": "She ___ the recipe from her grandmother.",
+            "hint": "copy",
             "accepted": [
-              "became"
+              "copied"
+            ]
+          },
+          {
+            "sentence": "He ___ the ball across the field.",
+            "hint": "kick",
+            "accepted": [
+              "kicked"
             ]
           }
         ]
@@ -1294,104 +1930,346 @@ const CATEGORIES = [
       {
         "id": "berata-2",
         "title": "Övning 2",
-        "instruction": "Välj rätt tidsuttryck.",
-        "type": "lucktext_bank",
+        "instruction": "Skriv verbet inom parentes i dåtid (oregelbundna verb).",
+        "type": "lucktext_hint",
         "items": [
           {
-            "sentence": "I moved to this city __________.",
+            "sentence": "I ___ to Spain last summer.",
+            "hint": "go",
             "accepted": [
-              "two years ago"
+              "went"
             ]
           },
           {
-            "sentence": "__________, I thought the job would be easy.",
+            "sentence": "She ___ her keys yesterday.",
+            "hint": "lose",
             "accepted": [
-              "at first"
+              "lost"
             ]
           },
           {
-            "sentence": "We ate dinner, and __________ we went to a concert.",
+            "sentence": "We ___ a great film last night.",
+            "hint": "see",
             "accepted": [
-              "then"
+              "saw"
             ]
           },
           {
-            "sentence": "__________, the lights went out and the music stopped.",
+            "sentence": "He ___ a new laptop last week.",
+            "hint": "buy",
             "accepted": [
-              "suddenly"
+              "bought"
             ]
           },
           {
-            "sentence": "I checked the address __________ I left home.",
+            "sentence": "They ___ home early.",
+            "hint": "leave",
             "accepted": [
-              "before"
+              "left"
             ]
           },
           {
-            "sentence": "Someone called me __________ I was waiting for the bus.",
+            "sentence": "I ___ my old teacher at the shop.",
+            "hint": "meet",
             "accepted": [
-              "while"
+              "met"
             ]
           },
           {
-            "sentence": "I met my new manager __________.",
+            "sentence": "She ___ the cake in an hour.",
+            "hint": "make",
             "accepted": [
-              "yesterday"
+              "made"
             ]
           },
           {
-            "sentence": "We spent an hour looking for the keys. __________, we found them in the fridge.",
+            "sentence": "We ___ the whole weekend at home.",
+            "hint": "spend",
             "accepted": [
-              "finally"
+              "spent"
             ]
           },
           {
-            "sentence": "I could not sleep __________ because my neighbours had a party.",
+            "sentence": "He ___ me the truth.",
+            "hint": "tell",
             "accepted": [
-              "last night"
+              "told"
             ]
           },
           {
-            "sentence": "The train was delayed. __________, we missed the beginning of the film.",
+            "sentence": "They ___ the news on the radio.",
+            "hint": "hear",
             "accepted": [
-              "after that"
+              "heard"
             ]
           }
-        ],
-        "bank": [
-          "yesterday",
-          "last night",
-          "two years ago",
-          "then",
-          "after that",
-          "finally",
-          "at first",
-          "suddenly",
-          "while",
-          "before"
         ]
       },
       {
         "id": "berata-3",
         "title": "Övning 3",
+        "instruction": "Välj rätt form: was eller were.",
+        "type": "flerval_inline",
+        "items": [
+          {
+            "sentence": "I ___ very tired after the trip.",
+            "options": [
+              "was",
+              "were"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "They ___ late for the meeting.",
+            "options": [
+              "was",
+              "were"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "The weather ___ terrible last weekend.",
+            "options": [
+              "was",
+              "were"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "We ___ at the cinema all evening.",
+            "options": [
+              "was",
+              "were"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "She ___ surprised by the result.",
+            "options": [
+              "was",
+              "were"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "You ___ right about the price.",
+            "options": [
+              "was",
+              "were"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "The children ___ asleep by nine.",
+            "options": [
+              "was",
+              "were"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "My phone ___ broken for a week.",
+            "options": [
+              "was",
+              "were"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "The tickets ___ more expensive than expected.",
+            "options": [
+              "was",
+              "were"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "It ___ a difficult decision.",
+            "options": [
+              "was",
+              "were"
+            ],
+            "correctIndex": 0
+          }
+        ]
+      },
+      {
+        "id": "berata-4",
+        "title": "Övning 4",
+        "instruction": "Sätt orden i rätt ordning så det blir en korrekt mening.",
+        "type": "ordna",
+        "items": [
+          {
+            "chips": [
+              "yesterday",
+              "I",
+              "to",
+              "a job interview",
+              "went"
+            ],
+            "target": "I went to a job interview yesterday.",
+            "correctOrder": [
+              1,
+              4,
+              2,
+              3,
+              0
+            ]
+          },
+          {
+            "chips": [
+              "the concert",
+              "much later",
+              "finished",
+              "than expected"
+            ],
+            "target": "The concert finished much later than expected.",
+            "correctOrder": [
+              0,
+              2,
+              1,
+              3
+            ]
+          },
+          {
+            "chips": [
+              "my headphones",
+              "at the gym",
+              "I",
+              "lost"
+            ],
+            "target": "I lost my headphones at the gym.",
+            "correctOrder": [
+              2,
+              3,
+              0,
+              1
+            ]
+          },
+          {
+            "chips": [
+              "during",
+              "stole",
+              "my bicycle",
+              "someone",
+              "the night"
+            ],
+            "target": "Someone stole my bicycle during the night.",
+            "correctOrder": [
+              3,
+              1,
+              2,
+              0,
+              4
+            ]
+          },
+          {
+            "chips": [
+              "an old classmate",
+              "I",
+              "at the supermarket",
+              "saw"
+            ],
+            "target": "I saw an old classmate at the supermarket.",
+            "correctOrder": [
+              1,
+              3,
+              0,
+              2
+            ]
+          },
+          {
+            "chips": [
+              "surprisingly",
+              "the discussion",
+              "became",
+              "heated"
+            ],
+            "target": "The discussion became surprisingly heated.",
+            "correctOrder": [
+              1,
+              2,
+              0,
+              3
+            ]
+          },
+          {
+            "chips": [
+              "our booking",
+              "by mistake",
+              "the restaurant",
+              "cancelled"
+            ],
+            "target": "The restaurant cancelled our booking by mistake.",
+            "correctOrder": [
+              2,
+              3,
+              0,
+              1
+            ]
+          },
+          {
+            "chips": [
+              "in one weekend",
+              "they",
+              "the entire series",
+              "watched"
+            ],
+            "target": "They watched the entire series in one weekend.",
+            "correctOrder": [
+              1,
+              3,
+              2,
+              0
+            ]
+          },
+          {
+            "chips": [
+              "during the sale",
+              "a new laptop",
+              "bought",
+              "Sara"
+            ],
+            "target": "Sara bought a new laptop during the sale.",
+            "correctOrder": [
+              3,
+              2,
+              1,
+              0
+            ]
+          },
+          {
+            "chips": [
+              "me",
+              "about the change",
+              "my colleague",
+              "told",
+              "yesterday"
+            ],
+            "target": "My colleague told me about the change yesterday.",
+            "correctOrder": [
+              2,
+              3,
+              0,
+              1,
+              4
+            ]
+          }
+        ]
+      },
+      {
+        "id": "berata-5",
+        "title": "Övning 5",
         "instruction": "Varje mening innehåller ett fel. Skriv om meningen korrekt.",
         "type": "korrigera",
         "items": [
           {
-            "sentence": "I go to a job interview yesterday.",
-            "hint": "",
-            "accepted": [
-              "i went to a job interview yesterday"
-            ],
-            "correctDisplay": "I went to a job interview yesterday."
-          },
-          {
-            "sentence": "She didn’t understood the question.",
+            "sentence": "She didn't understood the question.",
             "hint": "",
             "accepted": [
               "she didnt understand the question"
             ],
-            "correctDisplay": "She didn’t understand the question."
+            "correctDisplay": "She didn't understand the question."
           },
           {
             "sentence": "We was extremely tired after the festival.",
@@ -1426,12 +2304,12 @@ const CATEGORIES = [
             "correctDisplay": "He bought a second-hand car last month."
           },
           {
-            "sentence": "They didn’t arrived on time.",
+            "sentence": "They didn't arrived on time.",
             "hint": "",
             "accepted": [
               "they didnt arrive on time"
             ],
-            "correctDisplay": "They didn’t arrive on time."
+            "correctDisplay": "They didn't arrive on time."
           },
           {
             "sentence": "I were surprised by the result.",
@@ -1450,12 +2328,20 @@ const CATEGORIES = [
             "correctDisplay": "The meeting began at nine and ended at eleven."
           },
           {
-            "sentence": "Anna went behind Elvira’s back when she tell the producer what happened.",
+            "sentence": "I go to a job interview yesterday.",
             "hint": "",
             "accepted": [
-              "anna went behind elviras back when she told the producer what happened 5 prata om framtid och planer"
+              "i went to a job interview yesterday"
             ],
-            "correctDisplay": "Anna went behind Elvira’s back when she told the producer what happened.\n\n5. Prata om framtid och planer"
+            "correctDisplay": "I went to a job interview yesterday."
+          },
+          {
+            "sentence": "She tell the producer what happened.",
+            "hint": "",
+            "accepted": [
+              "she told the producer what happened"
+            ],
+            "correctDisplay": "She told the producer what happened."
           }
         ]
       }
@@ -1465,85 +2351,95 @@ const CATEGORIES = [
     "id": "framtid",
     "icon": "→",
     "title": "Prata om framtid",
-  "explanation": {
-   "text": "Förklaring och exempel för den här kategorin kommer snart."
-  },
+    "explanation": {
+      "text": "Förklaring och exempel för den här kategorin kommer snart."
+    },
     "exercises": [
       {
         "id": "framtid-1",
         "title": "Övning 1",
-        "instruction": "Välj going to eller will och skriv hela frasen.",
-        "type": "lucktext_hint_choice",
+        "instruction": "Välj going to eller will beroende på om det är en plan eller ett spontant beslut.",
+        "type": "flerval_inline",
         "items": [
           {
-            "sentence": "I have already bought the tickets. I __________ see the band on Friday.",
-            "hint": "",
-            "accepted": [
-              "am going to"
-            ]
-          },
-          {
-            "sentence": "The phone is ringing. I __________ answer it.",
-            "hint": "",
-            "accepted": [
+            "sentence": "I have already bought the tickets. I ___ see the band on Friday.",
+            "options": [
+              "am going to",
               "will"
-            ]
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "Look at those dark clouds. It __________ rain.",
-            "hint": "",
-            "accepted": [
-              "is going to"
-            ]
-          },
-          {
-            "sentence": "We have booked a table. We __________ eat at the new restaurant tonight.",
-            "hint": "",
-            "accepted": [
-              "are going to"
-            ]
-          },
-          {
-            "sentence": "I forgot my wallet. Don’t worry, I __________ pay.",
-            "hint": "",
-            "accepted": [
+            "sentence": "The phone is ringing. I ___ answer it.",
+            "options": [
+              "am going to",
               "will"
-            ]
+            ],
+            "correctIndex": 1
           },
           {
-            "sentence": "She has applied to university. She __________ study psychology.",
-            "hint": "",
-            "accepted": [
-              "is going to"
-            ]
-          },
-          {
-            "sentence": "I think electric cars __________ become more common.",
-            "hint": "",
-            "accepted": [
+            "sentence": "Look at those dark clouds. It ___ rain.",
+            "options": [
+              "is going to",
               "will"
-            ]
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "We have made a schedule. We __________ start the project on Monday.",
-            "hint": "",
-            "accepted": [
-              "are going to"
-            ]
-          },
-          {
-            "sentence": "This bag looks heavy. I __________ carry it for you.",
-            "hint": "",
-            "accepted": [
+            "sentence": "We have booked a table. We ___ eat at the new restaurant tonight.",
+            "options": [
+              "are going to",
               "will"
-            ]
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "He has saved enough money. He __________ move into his own apartment.",
-            "hint": "",
-            "accepted": [
-              "is going to"
-            ]
+            "sentence": "I forgot my wallet. Don't worry, I ___ pay.",
+            "options": [
+              "am going to",
+              "will"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "She has applied to university. She ___ study psychology.",
+            "options": [
+              "is going to",
+              "will"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "I think electric cars ___ become more common.",
+            "options": [
+              "are going to",
+              "will"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "We have made a schedule. We ___ start the project on Monday.",
+            "options": [
+              "are going to",
+              "will"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "This bag looks heavy. I ___ carry it for you.",
+            "options": [
+              "am going to",
+              "will"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "He has saved enough money. He ___ move into his own apartment.",
+            "options": [
+              "is going to",
+              "will"
+            ],
+            "correctIndex": 0
           }
         ]
       },
@@ -1554,70 +2450,70 @@ const CATEGORIES = [
         "type": "lucktext_hint",
         "items": [
           {
-            "sentence": "I think the interview __________ well.",
-            "hint": "",
+            "sentence": "I think the interview ___ well.",
+            "hint": "go",
             "accepted": [
               "will go"
             ]
           },
           {
-            "sentence": "We __________ our friends in Copenhagen next weekend.",
-            "hint": "",
+            "sentence": "We ___ our friends in Copenhagen next weekend.",
+            "hint": "visit",
             "accepted": [
               "are going to visit"
             ]
           },
           {
-            "sentence": "Perhaps people __________ fewer hours in the future.",
+            "sentence": "Perhaps people ___ fewer hours in the future.",
             "hint": "work",
             "accepted": [
               "will work"
             ]
           },
           {
-            "sentence": "My sister __________ a driving lesson tomorrow afternoon.",
+            "sentence": "My sister ___ a driving lesson tomorrow afternoon.",
             "hint": "have",
             "accepted": [
               "is going to have"
             ]
           },
           {
-            "sentence": "I promise I __________ anyone about the message.",
-            "hint": "",
+            "sentence": "I promise I ___ anyone about the message.",
+            "hint": "not tell",
             "accepted": [
               "will not tell"
             ]
           },
           {
-            "sentence": "They __________ the apartment next month. They have already signed the contract.",
+            "sentence": "They ___ the apartment next month. They have already signed the contract.",
             "hint": "leave",
             "accepted": [
               "are going to leave"
             ]
           },
           {
-            "sentence": "Do you think the rent __________ again next year?",
+            "sentence": "Do you think the rent ___ again next year?",
             "hint": "increase",
             "accepted": [
               "will increase"
             ]
           },
           {
-            "sentence": "I am sure you __________ the right decision.",
-            "hint": "",
+            "sentence": "I am sure you ___ the right decision.",
+            "hint": "make",
             "accepted": [
               "will make"
             ]
           },
           {
-            "sentence": "Amir __________ a small business with two friends. They have prepared everything.",
-            "hint": "",
+            "sentence": "Amir ___ a small business with two friends. They have prepared everything.",
+            "hint": "start",
             "accepted": [
               "is going to start"
             ]
           },
           {
-            "sentence": "I do not think the event __________ on time.",
+            "sentence": "I do not think the event ___ on time.",
             "hint": "begin",
             "accepted": [
               "will begin"
@@ -1640,6 +2536,7 @@ const CATEGORIES = [
               "to",
               "study"
             ],
+            "target": "What are you going to study?",
             "correctOrder": [
               2,
               1,
@@ -1647,8 +2544,7 @@ const CATEGORIES = [
               0,
               4,
               5
-            ],
-            "target": "What are you going to study?"
+            ]
           },
           {
             "chips": [
@@ -1658,14 +2554,14 @@ const CATEGORIES = [
               "continue",
               "to rise"
             ],
+            "target": "Prices will probably continue to rise.",
             "correctOrder": [
               1,
               2,
               0,
               3,
               4
-            ],
-            "target": "Prices will probably continue to rise."
+            ]
           },
           {
             "chips": [
@@ -1675,14 +2571,14 @@ const CATEGORIES = [
               "am",
               "working"
             ],
+            "target": "I am not working this weekend.",
             "correctOrder": [
               2,
               3,
               1,
               4,
               0
-            ],
-            "target": "I am not working this weekend."
+            ]
           },
           {
             "chips": [
@@ -1693,6 +2589,7 @@ const CATEGORIES = [
               "are",
               "to"
             ],
+            "target": "Where are they going to stay?",
             "correctOrder": [
               1,
               4,
@@ -1700,8 +2597,7 @@ const CATEGORIES = [
               0,
               5,
               2
-            ],
-            "target": "Where are they going to stay?"
+            ]
           },
           {
             "chips": [
@@ -1711,14 +2607,14 @@ const CATEGORIES = [
               "later",
               "you"
             ],
+            "target": "I will message you later.",
             "correctOrder": [
               1,
               0,
               2,
               4,
               3
-            ],
-            "target": "I will message you later."
+            ]
           },
           {
             "chips": [
@@ -1728,14 +2624,14 @@ const CATEGORIES = [
               "a new app",
               "going to"
             ],
+            "target": "The company is going to launch a new app.",
             "correctOrder": [
               2,
               0,
               4,
               1,
               3
-            ],
-            "target": "The company is going to launch a new app."
+            ]
           },
           {
             "chips": [
@@ -1746,6 +2642,7 @@ const CATEGORIES = [
               "will",
               "agree"
             ],
+            "target": "Do you think people will agree?",
             "correctOrder": [
               1,
               3,
@@ -1753,8 +2650,7 @@ const CATEGORIES = [
               2,
               4,
               5
-            ],
-            "target": "Do you think people will agree?"
+            ]
           },
           {
             "chips": [
@@ -1764,14 +2660,14 @@ const CATEGORIES = [
               "after work",
               "them"
             ],
+            "target": "We are meeting them after work.",
             "correctOrder": [
               1,
               2,
               0,
               4,
               3
-            ],
-            "target": "We are meeting them after work."
+            ]
           },
           {
             "chips": [
@@ -1781,14 +2677,14 @@ const CATEGORIES = [
               "will",
               "the event"
             ],
+            "target": "She will not attend the event.",
             "correctOrder": [
               1,
               3,
               0,
               2,
               4
-            ],
-            "target": "She will not attend the event."
+            ]
           },
           {
             "chips": [
@@ -1798,14 +2694,190 @@ const CATEGORIES = [
               "my phone",
               "to replace"
             ],
+            "target": "I am going to replace my phone.",
             "correctOrder": [
               1,
               2,
               0,
               4,
               3
+            ]
+          }
+        ]
+      },
+      {
+        "id": "framtid-4",
+        "title": "Övning 4",
+        "instruction": "Välj rätt form: am, is eller are (going to).",
+        "type": "flerval_inline",
+        "items": [
+          {
+            "sentence": "I ___ going to call her tonight.",
+            "options": [
+              "am",
+              "is"
             ],
-            "target": "I am going to replace my phone.\n\n6. Ställa frågor och ge korta svar"
+            "correctIndex": 0
+          },
+          {
+            "sentence": "He ___ going to be late.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "We ___ going to need more time.",
+            "options": [
+              "am",
+              "are"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "She ___ going to change jobs.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "They ___ going to sell their car.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "I ___ going to try that new café.",
+            "options": [
+              "am",
+              "is"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "It ___ going to be a long meeting.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "You ___ going to love this place.",
+            "options": [
+              "are",
+              "is"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "The team ___ going to announce the results soon.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "My parents ___ going to visit next month.",
+            "options": [
+              "is",
+              "are"
+            ],
+            "correctIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "framtid-5",
+        "title": "Övning 5",
+        "instruction": "Välj will eller won't.",
+        "type": "flerval_inline",
+        "items": [
+          {
+            "sentence": "I promise I ___ be late again.",
+            "options": [
+              "will",
+              "won't"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "It ___ probably rain later, take an umbrella.",
+            "options": [
+              "will",
+              "won't"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "Don't worry, I ___ forget to call you.",
+            "options": [
+              "will",
+              "won't"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "She ___ be happy when she hears the news.",
+            "options": [
+              "will",
+              "won't"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "He ___ change his mind — he's very stubborn.",
+            "options": [
+              "won't",
+              "will"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "We ___ arrive before six, I'm sure.",
+            "options": [
+              "will",
+              "won't"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "They ___ mind if we're a few minutes late.",
+            "options": [
+              "won't",
+              "will"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "I ___ tell anyone, I promise.",
+            "options": [
+              "won't",
+              "will"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "This ___ take more than an hour.",
+            "options": [
+              "will",
+              "won't"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "You ___ regret it, I promise.",
+            "options": [
+              "won't",
+              "will"
+            ],
+            "correctIndex": 0
           }
         ]
       }
@@ -1815,88 +2887,96 @@ const CATEGORIES = [
     "id": "fragor",
     "icon": "?",
     "title": "Ställa frågor och svara",
-  "explanation": {
-   "text": "Förklaring och exempel för den här kategorin kommer snart."
-  },
+    "explanation": {
+      "text": "Förklaring och exempel för den här kategorin kommer snart."
+    },
     "exercises": [
       {
         "id": "fragor-1",
         "title": "Övning 1",
         "instruction": "Välj rätt frågeord.",
-        "type": "lucktext_bank",
+        "type": "flerval_inline",
         "items": [
           {
-            "sentence": "__________ does the last train leave?",
-            "accepted": [
-              "when"
-            ]
+            "sentence": "___ does the last train leave?",
+            "options": [
+              "When",
+              "What"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "__________ people attended the event?",
-            "accepted": [
-              "how many"
-            ]
+            "sentence": "___ people attended the event?",
+            "options": [
+              "How many",
+              "How much"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "__________ are you looking at?",
-            "accepted": [
-              "what"
-            ]
+            "sentence": "___ are you looking at?",
+            "options": [
+              "What",
+              "Who"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "__________ do you normally pay for streaming services?",
-            "accepted": [
-              "how often"
-            ]
+            "sentence": "___ do you normally pay for streaming services?",
+            "options": [
+              "How much",
+              "How many"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "__________ of these jackets do you prefer?",
-            "accepted": [
-              "which"
-            ]
+            "sentence": "___ of these jackets do you prefer?",
+            "options": [
+              "Which",
+              "What"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "__________ did you decide to leave the course?",
-            "accepted": [
-              "why"
-            ]
+            "sentence": "___ did you decide to leave the course?",
+            "options": [
+              "Why",
+              "How"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "__________ does this subscription cost?",
-            "accepted": [
-              "how much"
-            ]
+            "sentence": "___ does this subscription cost?",
+            "options": [
+              "How much",
+              "How many"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "__________ called me while I was working?",
-            "accepted": [
-              "who"
-            ]
+            "sentence": "___ called me while I was working?",
+            "options": [
+              "Who",
+              "What"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "__________ are the toilets?",
-            "accepted": [
-              "where"
-            ]
+            "sentence": "___ are the toilets?",
+            "options": [
+              "Where",
+              "When"
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "__________ did you solve the problem?",
-            "accepted": [
-              "how"
-            ]
+            "sentence": "___ did you solve the problem?",
+            "options": [
+              "How",
+              "Why"
+            ],
+            "correctIndex": 0
           }
-        ],
-        "bank": [
-          "Who",
-          "What",
-          "Where",
-          "When",
-          "Why",
-          "Which",
-          "How",
-          "How often",
-          "How much",
-          "How many"
         ]
       },
       {
@@ -1912,13 +2992,13 @@ const CATEGORIES = [
               "do",
               "work"
             ],
+            "target": "Where do you work?",
             "correctOrder": [
               1,
               2,
               0,
               3
-            ],
-            "target": "Where do you work?"
+            ]
           },
           {
             "chips": [
@@ -1928,14 +3008,14 @@ const CATEGORIES = [
               "did",
               "the event"
             ],
+            "target": "Why did they cancel the event?",
             "correctOrder": [
               1,
               3,
               2,
               4,
               0
-            ],
-            "target": "Why did they cancel the event?"
+            ]
           },
           {
             "chips": [
@@ -1944,13 +3024,13 @@ const CATEGORIES = [
               "coffee",
               "drink"
             ],
+            "target": "Does she drink coffee?",
             "correctOrder": [
               1,
               0,
               3,
               2
-            ],
-            "target": "Does she drink coffee?"
+            ]
           },
           {
             "chips": [
@@ -1959,13 +3039,13 @@ const CATEGORIES = [
               "when",
               "the package"
             ],
+            "target": "When did the package arrive?",
             "correctOrder": [
               2,
               1,
               3,
               0
-            ],
-            "target": "When did the package arrive?"
+            ]
           },
           {
             "chips": [
@@ -1974,13 +3054,13 @@ const CATEGORIES = [
               "work",
               "does"
             ],
+            "target": "How does this app work?",
             "correctOrder": [
               1,
               3,
               0,
               2
-            ],
-            "target": "How does this app work?"
+            ]
           },
           {
             "chips": [
@@ -1989,13 +3069,13 @@ const CATEGORIES = [
               "coming",
               "tonight"
             ],
+            "target": "Are your friends coming tonight?",
             "correctOrder": [
               1,
               0,
               2,
               3
-            ],
-            "target": "Are your friends coming tonight?"
+            ]
           },
           {
             "chips": [
@@ -2004,13 +3084,13 @@ const CATEGORIES = [
               "here",
               "sit"
             ],
+            "target": "Can I sit here?",
             "correctOrder": [
               0,
               1,
               3,
               2
-            ],
-            "target": "Can I sit here?"
+            ]
           },
           {
             "chips": [
@@ -2019,13 +3099,13 @@ const CATEGORIES = [
               "replied",
               "yet"
             ],
+            "target": "Has he replied yet?",
             "correctOrder": [
               1,
               0,
               2,
               3
-            ],
-            "target": "Has he replied yet?"
+            ]
           },
           {
             "chips": [
@@ -2034,13 +3114,13 @@ const CATEGORIES = [
               "yesterday",
               "where"
             ],
+            "target": "Where were you yesterday?",
             "correctOrder": [
               3,
               1,
               0,
               2
-            ],
-            "target": "Where were you yesterday?"
+            ]
           },
           {
             "chips": [
@@ -2049,13 +3129,13 @@ const CATEGORIES = [
               "the tickets",
               "did"
             ],
+            "target": "How much did the tickets cost?",
             "correctOrder": [
               1,
               3,
               2,
               0
-            ],
-            "target": "How much did the tickets cost?"
+            ]
           }
         ]
       },
@@ -2077,9 +3157,9 @@ const CATEGORIES = [
           {
             "question": "Is the café still open?",
             "options": [
-              "No, it isn’t.",
-              "No, it doesn’t.",
-              "No, it hasn’t."
+              "No, it isn't.",
+              "No, it doesn't.",
+              "No, it hasn't."
             ],
             "correctIndex": 0
           },
@@ -2095,9 +3175,9 @@ const CATEGORIES = [
           {
             "question": "Can your colleague drive?",
             "options": [
-              "No, he can’t.",
-              "No, he doesn’t.",
-              "No, he isn’t."
+              "No, he can't.",
+              "No, he doesn't.",
+              "No, he isn't."
             ],
             "correctIndex": 0
           },
@@ -2113,9 +3193,9 @@ const CATEGORIES = [
           {
             "question": "Has the meeting started?",
             "options": [
-              "No, it hasn’t.",
-              "No, it didn’t.",
-              "No, it isn’t."
+              "No, it hasn't.",
+              "No, it didn't.",
+              "No, it isn't."
             ],
             "correctIndex": 0
           },
@@ -2131,9 +3211,9 @@ const CATEGORIES = [
           {
             "question": "Does Amir live nearby?",
             "options": [
-              "No, he doesn’t.",
-              "No, he isn’t.",
-              "No, he don’t."
+              "No, he doesn't.",
+              "No, he isn't.",
+              "No, he don't."
             ],
             "correctIndex": 0
           },
@@ -2156,6 +3236,192 @@ const CATEGORIES = [
             "correctIndex": 0
           }
         ]
+      },
+      {
+        "id": "fragor-4",
+        "title": "Övning 4",
+        "instruction": "Välj rätt hjälpverb för att skapa frågan.",
+        "type": "flerval_inline",
+        "items": [
+          {
+            "sentence": "___ you like coffee?",
+            "options": [
+              "Do",
+              "Are"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "___ she working today?",
+            "options": [
+              "Is",
+              "Does"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "___ they leave early yesterday?",
+            "options": [
+              "Did",
+              "Do"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "___ he speak French?",
+            "options": [
+              "Does",
+              "Is"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "___ you seen this film before?",
+            "options": [
+              "Have",
+              "Do"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "___ it raining outside?",
+            "options": [
+              "Is",
+              "Does"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "___ your sister live nearby?",
+            "options": [
+              "Does",
+              "Is"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "___ you finished the report yet?",
+            "options": [
+              "Have",
+              "Are"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "___ we going to be late?",
+            "options": [
+              "Are",
+              "Do"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "___ the shop open on Sundays?",
+            "options": [
+              "Is",
+              "Does"
+            ],
+            "correctIndex": 0
+          }
+        ]
+      },
+      {
+        "id": "fragor-5",
+        "title": "Övning 5",
+        "instruction": "Vad säger du om du inte förstod svaret? Välj den mest passande följdfrågan.",
+        "type": "flerval_abc",
+        "items": [
+          {
+            "question": "Someone gives you an answer you don't understand.",
+            "options": [
+              "Could you explain that again?",
+              "Say it more.",
+              "I don't get anything."
+            ],
+            "correctIndex": 0
+          },
+          {
+            "question": "You want to check you heard the time correctly.",
+            "options": [
+              "Time is when?",
+              "Sorry, what time did you say?",
+              "You said time."
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "You want to know the reason behind a decision.",
+            "options": [
+              "Why is that decision?",
+              "Why did you decide that?",
+              "Reason please now."
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "You want to know how something works.",
+            "options": [
+              "How does that work?",
+              "That works how?",
+              "Explain work."
+            ],
+            "correctIndex": 0
+          },
+          {
+            "question": "You didn't catch someone's name.",
+            "options": [
+              "Name is what?",
+              "Sorry, what was your name again?",
+              "Tell name."
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "You want to know the price.",
+            "options": [
+              "How much is it?",
+              "Price is how much?",
+              "Money is what?"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "question": "You want to know when something starts.",
+            "options": [
+              "Starts is when?",
+              "When does it start?",
+              "Time start what?"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "You want to confirm the location.",
+            "options": [
+              "Where is that, exactly?",
+              "That is where place?",
+              "Location tell me."
+            ],
+            "correctIndex": 0
+          },
+          {
+            "question": "You want to know who is responsible.",
+            "options": [
+              "Responsible is who?",
+              "Who is responsible for this?",
+              "Who did that person?"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "You want more detail about how often something happens.",
+            "options": [
+              "How often does that happen?",
+              "Happen how often that?",
+              "Often is when?"
+            ],
+            "correctIndex": 0
+          }
+        ]
       }
     ]
   },
@@ -2163,14 +3429,14 @@ const CATEGORIES = [
     "id": "situationer",
     "icon": "💬",
     "title": "Klara vardagliga situationer",
-  "explanation": {
-   "text": "Förklaring och exempel för den här kategorin kommer snart."
-  },
+    "explanation": {
+      "text": "Förklaring och exempel för den här kategorin kommer snart."
+    },
     "exercises": [
       {
         "id": "situationer-1",
         "title": "Övning 1",
-        "instruction": "Vad säger du i den här situationen? Välj det lämpligaste alternativet.",
+        "instruction": "Vad säger du? Välj det lämpligaste alternativet.",
         "type": "flerval_abc",
         "items": [
           {
@@ -2203,7 +3469,7 @@ const CATEGORIES = [
           {
             "question": "Du kommer några minuter för sent.",
             "options": [
-              "Sorry I’m late. The bus was delayed.",
+              "Sorry I'm late. The bus was delayed.",
               "The bus made me late, okay?",
               "I am late because yes."
             ],
@@ -2268,168 +3534,8 @@ const CATEGORIES = [
       {
         "id": "situationer-2",
         "title": "Övning 2",
-        "instruction": "Välj det bästa svaret på repliken.",
-        "type": "flerval_abc",
-        "items": [
-          {
-            "question": "“Would you like a receipt?”",
-            "options": [
-              "No, thanks.",
-              "No, I don’t like.",
-              "The receipt is paper."
-            ],
-            "correctIndex": 0
-          },
-          {
-            "question": "“I’m afraid the train has been cancelled.”",
-            "options": [
-              "That’s annoying. What are my other options?",
-              "Cancel it again.",
-              "Trains are usually long."
-            ],
-            "correctIndex": 0
-          },
-          {
-            "question": "“Can I see some identification?”",
-            "options": [
-              "Yes, here you are.",
-              "Yes, you see.",
-              "Identification sees me."
-            ],
-            "correctIndex": 0
-          },
-          {
-            "question": "“Do you need any help?”",
-            "options": [
-              "Yes, I’m looking for the changing rooms.",
-              "Yes, help is good.",
-              "I need sometimes."
-            ],
-            "correctIndex": 0
-          },
-          {
-            "question": "“Your appointment is at half past two.”",
-            "options": [
-              "Thanks. I’ll be there.",
-              "Half past is late.",
-              "The appointment has time."
-            ],
-            "correctIndex": 0
-          },
-          {
-            "question": "“Would you mind waiting for a few minutes?”",
-            "options": [
-              "No problem.",
-              "Yes, I wait no.",
-              "A few minutes are four."
-            ],
-            "correctIndex": 0
-          },
-          {
-            "question": "“How would you like to pay?”",
-            "options": [
-              "By card, please.",
-              "I like money.",
-              "With payment."
-            ],
-            "correctIndex": 0
-          },
-          {
-            "question": "“I think you have the wrong number.”",
-            "options": [
-              "I’m sorry. I must have entered it incorrectly.",
-              "The number is not wrong.",
-              "Who is your phone?"
-            ],
-            "correctIndex": 0
-          },
-          {
-            "question": "“The kitchen closes in ten minutes.”",
-            "options": [
-              "In that case, we’ll order now.",
-              "The kitchen has a door.",
-              "Ten minutes closed."
-            ],
-            "correctIndex": 0
-          },
-          {
-            "question": "“Could you send me the details by email?”",
-            "options": [
-              "Certainly. I’ll send them this afternoon.",
-              "The email sends details.",
-              "Yes, details are electronic."
-            ],
-            "correctIndex": 0
-          }
-        ]
-      },
-      {
-        "id": "situationer-3",
-        "title": "Övning 3",
         "instruction": "Fyll i dialogen med rätt fras.",
         "type": "lucktext_bank",
-        "items": [
-          {
-            "sentence": "At a hotel: “________________________ under the name Hassan.”",
-            "accepted": [
-              "i have a reservation"
-            ]
-          },
-          {
-            "sentence": "In a restaurant: “________________________ We’re ready to leave.”",
-            "accepted": [
-              "could we have the bill"
-            ]
-          },
-          {
-            "sentence": "At a concert venue: “________________________”",
-            "accepted": [
-              "are there any tickets left"
-            ]
-          },
-          {
-            "sentence": "At a reception desk: “________________________”",
-            "accepted": [
-              "what time do you close"
-            ]
-          },
-          {
-            "sentence": "In a shop: “________________________ It doesn’t work properly.”",
-            "accepted": [
-              "i would like to return this"
-            ]
-          },
-          {
-            "sentence": "On the phone: “________________________ I’m having trouble understanding.”",
-            "accepted": [
-              "could you speak a little more slowly"
-            ]
-          },
-          {
-            "sentence": "At a hotel: “________________________ or does it cost extra?”",
-            "accepted": [
-              "is breakfast included"
-            ]
-          },
-          {
-            "sentence": "In a café: “________________________ The battery is almost dead.”",
-            "accepted": [
-              "where can i charge my phone"
-            ]
-          },
-          {
-            "sentence": "In a restaurant: “I don’t eat meat. ________________________”",
-            "accepted": [
-              "could you recommend something"
-            ]
-          },
-          {
-            "sentence": "At a clinic: “________________________” – “I have had a headache for three days.”",
-            "accepted": [
-              "what seems to be the problem 8 jämföra räkna och beskriva mängd"
-            ]
-          }
-        ],
         "bank": [
           "Are there any tickets left?",
           "Could we have the bill?",
@@ -2441,6 +3547,352 @@ const CATEGORIES = [
           "I would like to return this",
           "Could you recommend something?",
           "What time do you close?"
+        ],
+        "items": [
+          {
+            "sentence": "At a hotel: \"__________ under the name Hassan.\"",
+            "accepted": [
+              "i have a reservation"
+            ]
+          },
+          {
+            "sentence": "In a restaurant: \"__________ We're ready to leave.\"",
+            "accepted": [
+              "could we have the bill"
+            ]
+          },
+          {
+            "sentence": "At a concert venue: \"__________\"",
+            "accepted": [
+              "are there any tickets left"
+            ]
+          },
+          {
+            "sentence": "At a reception desk: \"__________\"",
+            "accepted": [
+              "what time do you close"
+            ]
+          },
+          {
+            "sentence": "In a shop: \"__________ It doesn't work properly.\"",
+            "accepted": [
+              "i would like to return this"
+            ]
+          },
+          {
+            "sentence": "On the phone: \"__________ I'm having trouble understanding.\"",
+            "accepted": [
+              "could you speak a little more slowly"
+            ]
+          },
+          {
+            "sentence": "At a hotel: \"__________ or does it cost extra?\"",
+            "accepted": [
+              "is breakfast included"
+            ]
+          },
+          {
+            "sentence": "In a café: \"__________ The battery is almost dead.\"",
+            "accepted": [
+              "where can i charge my phone"
+            ]
+          },
+          {
+            "sentence": "In a restaurant: \"I don't eat meat. __________\"",
+            "accepted": [
+              "could you recommend something"
+            ]
+          },
+          {
+            "sentence": "At a clinic: \"__________\" – \"I have had a headache for three days.\"",
+            "accepted": [
+              "what seems to be the problem"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "situationer-3",
+        "title": "Övning 3",
+        "instruction": "Välj det bästa svaret.",
+        "type": "flerval_abc",
+        "items": [
+          {
+            "question": "\"Would you like a receipt?\"",
+            "options": [
+              "The receipt is paper.",
+              "No, thanks.",
+              "No, I don't like."
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "\"I'm afraid the train has been cancelled.\"",
+            "options": [
+              "Trains are usually long.",
+              "Cancel it again.",
+              "That's annoying. What are my other options?"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "question": "\"Can I see some identification?\"",
+            "options": [
+              "Identification sees me.",
+              "Yes, here you are.",
+              "Yes, you see."
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "\"Do you need any help?\"",
+            "options": [
+              "I need sometimes.",
+              "Yes, help is good.",
+              "Yes, I'm looking for the changing rooms."
+            ],
+            "correctIndex": 2
+          },
+          {
+            "question": "\"Your appointment is at half past two.\"",
+            "options": [
+              "The appointment has time.",
+              "Half past is late.",
+              "Thanks. I'll be there."
+            ],
+            "correctIndex": 2
+          },
+          {
+            "question": "\"Would you mind waiting for a few minutes?\"",
+            "options": [
+              "A few minutes are four.",
+              "No problem.",
+              "Yes, I wait no."
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "\"How would you like to pay?\"",
+            "options": [
+              "With payment.",
+              "I like money.",
+              "By card, please."
+            ],
+            "correctIndex": 2
+          },
+          {
+            "question": "\"I think you have the wrong number.\"",
+            "options": [
+              "Who is your phone?",
+              "The number is not wrong.",
+              "I'm sorry. I must have entered it incorrectly."
+            ],
+            "correctIndex": 2
+          },
+          {
+            "question": "\"The kitchen closes in ten minutes.\"",
+            "options": [
+              "Ten minutes closed.",
+              "The kitchen has a door.",
+              "In that case, we'll order now."
+            ],
+            "correctIndex": 2
+          },
+          {
+            "question": "\"Could you send me the details by email?\"",
+            "options": [
+              "The email sends details.",
+              "Yes, details are electronic.",
+              "Certainly. I'll send them this afternoon."
+            ],
+            "correctIndex": 2
+          }
+        ]
+      },
+      {
+        "id": "situationer-4",
+        "title": "Övning 4",
+        "instruction": "Vad säger du? Välj det lämpligaste alternativet.",
+        "type": "flerval_abc",
+        "items": [
+          {
+            "question": "Du vill komma förbi någon i en trång gång.",
+            "options": [
+              "Move now please.",
+              "Excuse me, could I get past?",
+              "Out of way."
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "Du har tappat bort din väska.",
+            "options": [
+              "I have lost my bag.",
+              "My bag is not exist.",
+              "Bag is gone from me."
+            ],
+            "correctIndex": 0
+          },
+          {
+            "question": "Du vill be någon vara tystare.",
+            "options": [
+              "Stop talking now.",
+              "Would you mind keeping your voice down?",
+              "You loud too much."
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "Du vill fråga om ett bord är ledigt.",
+            "options": [
+              "This table free?",
+              "Table is empty yes?",
+              "Is this table free?"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "question": "Du vill be om kvitto.",
+            "options": [
+              "Could I get a receipt, please?",
+              "Give receipt.",
+              "Receipt for me now."
+            ],
+            "correctIndex": 0
+          },
+          {
+            "question": "Du är osäker på vilken buss du ska ta.",
+            "options": [
+              "Bus is which one?",
+              "Excuse me, which bus goes to the station?",
+              "Tell me bus number now."
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "Du vill fråga om öppettider.",
+            "options": [
+              "When you open?",
+              "What are your opening hours?",
+              "Open time what?"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "Du har fått fel maträtt på en restaurang.",
+            "options": [
+              "This is wrong food.",
+              "I think this isn't what I ordered.",
+              "Food wrong, change now."
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "Du vill tacka någon för hjälpen.",
+            "options": [
+              "Thanks help good.",
+              "Thank you so much for your help.",
+              "You help, good you."
+            ],
+            "correctIndex": 1
+          },
+          {
+            "question": "Du vill be om ursäkt för att du stör.",
+            "options": [
+              "Sorry to bother you, but could I ask something?",
+              "Sorry I bother now.",
+              "Excuse disturb question."
+            ],
+            "correctIndex": 0
+          }
+        ]
+      },
+      {
+        "id": "situationer-5",
+        "title": "Övning 5",
+        "instruction": "Välj den artiga varianten.",
+        "type": "flerval_inline",
+        "items": [
+          {
+            "sentence": "___",
+            "options": [
+              "Give me the menu.",
+              "Could I see the menu, please?"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "___",
+            "options": [
+              "Move your bag.",
+              "Would you mind moving your bag?"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "___",
+            "options": [
+              "I want a refund.",
+              "I'd like to ask about a refund, please."
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "___",
+            "options": [
+              "Could you help me for a moment?",
+              "Help me now."
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "___",
+            "options": [
+              "Tell me the price.",
+              "Could you tell me how much it costs?"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "___",
+            "options": [
+              "Wait here.",
+              "Would you mind waiting here for a moment?"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "___",
+            "options": [
+              "Do you have a table for two, please?",
+              "Table for two, now."
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "___",
+            "options": [
+              "Open the window.",
+              "Would it be okay if I opened the window?"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "___",
+            "options": [
+              "Sign here.",
+              "Could you sign here, please?"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "___",
+            "options": [
+              "Repeat that.",
+              "Sorry, could you repeat that, please?"
+            ],
+            "correctIndex": 1
+          }
         ]
       }
     ]
@@ -2449,9 +3901,9 @@ const CATEGORIES = [
     "id": "jamfora",
     "icon": "⚖",
     "title": "Jämföra, räkna och beskriva mängd",
-  "explanation": {
-   "text": "Förklaring och exempel för den här kategorin kommer snart."
-  },
+    "explanation": {
+      "text": "Förklaring och exempel för den här kategorin kommer snart."
+    },
     "exercises": [
       {
         "id": "jamfora-1",
@@ -2460,71 +3912,71 @@ const CATEGORIES = [
         "type": "lucktext_hint",
         "items": [
           {
-            "sentence": "The train is __________ than the bus during rush hour.",
-            "hint": "",
+            "sentence": "The train is ___ than the bus during rush hour.",
+            "hint": "fast",
             "accepted": [
               "faster"
             ]
           },
           {
-            "sentence": "This is the __________ apartment we have viewed so far.",
+            "sentence": "This is the ___ apartment we have viewed so far.",
             "hint": "expensive",
             "accepted": [
               "most expensive"
             ]
           },
           {
-            "sentence": "My new phone is much __________ than my old one.",
+            "sentence": "My new phone is much ___ than my old one.",
             "hint": "reliable",
             "accepted": [
               "more reliable"
             ]
           },
           {
-            "sentence": "That was the __________ interview question of the day.",
+            "sentence": "That was the ___ interview question of the day.",
             "hint": "difficult",
             "accepted": [
               "most difficult"
             ]
           },
           {
-            "sentence": "Working from home is often __________ than commuting.",
+            "sentence": "Working from home is often ___ than commuting.",
             "hint": "convenient",
             "accepted": [
               "more convenient"
             ]
           },
           {
-            "sentence": "The second season was __________ than the first.",
+            "sentence": "The second season was ___ than the first.",
             "hint": "good",
             "accepted": [
               "better"
             ]
           },
           {
-            "sentence": "This café is the __________ place in the neighbourhood.",
+            "sentence": "This café is the ___ place in the neighbourhood.",
             "hint": "popular",
             "accepted": [
               "most popular"
             ]
           },
           {
-            "sentence": "The queue became __________ as more people arrived.",
-            "hint": "",
+            "sentence": "The queue became ___ as more people arrived.",
+            "hint": "long",
             "accepted": [
               "longer"
             ]
           },
           {
-            "sentence": "Her explanation was __________ than the instructions on the website.",
+            "sentence": "Her explanation was ___ than the instructions on the website.",
             "hint": "clear",
             "accepted": [
               "clearer"
             ]
           },
           {
-            "sentence": "Taking a taxi is usually the __________ option.",
-            "hint": "",
+            "sentence": "Taking a taxi is usually the ___ option.",
+            "hint": "bad",
             "accepted": [
               "worst"
             ]
@@ -2536,6 +3988,10 @@ const CATEGORIES = [
         "title": "Övning 2",
         "instruction": "Välj some eller any.",
         "type": "lucktext_smallset",
+        "bank": [
+          "some",
+          "any"
+        ],
         "items": [
           {
             "sentence": "We need __________ more chairs for the meeting.",
@@ -2597,10 +4053,6 @@ const CATEGORIES = [
               "some"
             ]
           }
-        ],
-        "bank": [
-          "some",
-          "any"
         ]
       },
       {
@@ -2687,7 +4139,263 @@ const CATEGORIES = [
               "a lot of",
               "much"
             ],
-            "correctIndex": 1
+            "correctIndex": 0
+          }
+        ]
+      },
+      {
+        "id": "jamfora-4",
+        "title": "Övning 4",
+        "instruction": "Skriv komparativ- och superlativform av ordet inom parentes.",
+        "type": "lucktext_hint",
+        "items": [
+          {
+            "sentence": "This café is ___ than the one on the corner.",
+            "hint": "good",
+            "accepted": [
+              "better"
+            ]
+          },
+          {
+            "sentence": "It's the ___ coffee in town.",
+            "hint": "good",
+            "accepted": [
+              "best"
+            ]
+          },
+          {
+            "sentence": "The traffic today is ___ than yesterday.",
+            "hint": "bad",
+            "accepted": [
+              "worse"
+            ]
+          },
+          {
+            "sentence": "This was the ___ meal I've ever had.",
+            "hint": "bad",
+            "accepted": [
+              "worst"
+            ]
+          },
+          {
+            "sentence": "The station is ___ than I thought.",
+            "hint": "far",
+            "accepted": [
+              "further",
+              "farther"
+            ]
+          },
+          {
+            "sentence": "That's the ___ shop from here.",
+            "hint": "far",
+            "accepted": [
+              "furthest",
+              "farthest"
+            ]
+          },
+          {
+            "sentence": "This flat is ___ than our last one.",
+            "hint": "good",
+            "accepted": [
+              "better"
+            ]
+          },
+          {
+            "sentence": "Of all the options, this is the ___ one.",
+            "hint": "bad",
+            "accepted": [
+              "worst"
+            ]
+          },
+          {
+            "sentence": "My connection is ___ than it was last week.",
+            "hint": "bad",
+            "accepted": [
+              "worse"
+            ]
+          },
+          {
+            "sentence": "That is by far the ___ idea anyone has had.",
+            "hint": "good",
+            "accepted": [
+              "best"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "jamfora-5",
+        "title": "Övning 5",
+        "instruction": "Sätt orden i rätt ordning så det blir en korrekt mening.",
+        "type": "ordna",
+        "items": [
+          {
+            "chips": [
+              "this",
+              "is",
+              "book",
+              "more interesting",
+              "than that one"
+            ],
+            "target": "This book is more interesting than that one.",
+            "correctOrder": [
+              0,
+              2,
+              1,
+              3,
+              4
+            ]
+          },
+          {
+            "chips": [
+              "cheaper",
+              "flat",
+              "is",
+              "the",
+              "than ours"
+            ],
+            "target": "The flat is cheaper than ours.",
+            "correctOrder": [
+              3,
+              1,
+              2,
+              0,
+              4
+            ]
+          },
+          {
+            "chips": [
+              "the",
+              "best",
+              "restaurant",
+              "this is",
+              "in town"
+            ],
+            "target": "This is the best restaurant in town.",
+            "correctOrder": [
+              3,
+              0,
+              1,
+              2,
+              4
+            ]
+          },
+          {
+            "chips": [
+              "today",
+              "busier",
+              "is",
+              "than usual",
+              "the office"
+            ],
+            "target": "The office is busier than usual today.",
+            "correctOrder": [
+              4,
+              2,
+              1,
+              3,
+              0
+            ]
+          },
+          {
+            "chips": [
+              "this",
+              "the",
+              "is",
+              "worst",
+              "option"
+            ],
+            "target": "This is the worst option.",
+            "correctOrder": [
+              0,
+              2,
+              1,
+              3,
+              4
+            ]
+          },
+          {
+            "chips": [
+              "quieter",
+              "much",
+              "here",
+              "is",
+              "it"
+            ],
+            "target": "It is much quieter here.",
+            "correctOrder": [
+              4,
+              3,
+              1,
+              0,
+              2
+            ]
+          },
+          {
+            "chips": [
+              "the",
+              "cheapest",
+              "this",
+              "is",
+              "ticket"
+            ],
+            "target": "This is the cheapest ticket.",
+            "correctOrder": [
+              2,
+              3,
+              0,
+              1,
+              4
+            ]
+          },
+          {
+            "chips": [
+              "harder",
+              "than",
+              "was",
+              "expected",
+              "the exam"
+            ],
+            "target": "The exam was harder than expected.",
+            "correctOrder": [
+              4,
+              2,
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "chips": [
+              "the",
+              "most",
+              "convenient",
+              "option",
+              "is this"
+            ],
+            "target": "This is the most convenient option.",
+            "correctOrder": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          {
+            "chips": [
+              "longer",
+              "took",
+              "than planned",
+              "the meeting"
+            ],
+            "target": "The meeting took longer than planned.",
+            "correctOrder": [
+              3,
+              1,
+              0,
+              2
+            ]
           }
         ]
       }
@@ -2697,88 +4405,96 @@ const CATEGORIES = [
     "id": "kanslor",
     "icon": "💭",
     "title": "Tankar, känslor, råd och regler",
-  "explanation": {
-   "text": "Förklaring och exempel för den här kategorin kommer snart."
-  },
+    "explanation": {
+      "text": "Förklaring och exempel för den här kategorin kommer snart."
+    },
     "exercises": [
       {
         "id": "kanslor-1",
         "title": "Övning 1",
-        "instruction": "Välj ordet som passar känslan bäst.",
-        "type": "lucktext_bank",
+        "instruction": "Välj det ord som passar bäst i meningen.",
+        "type": "flerval_inline",
         "items": [
           {
-            "sentence": "I was __________ when I finally passed the driving test.",
-            "accepted": [
-              "proud"
-            ]
-          },
-          {
-            "sentence": "She felt __________ when nobody remembered her birthday.",
-            "accepted": [
-              "disappointed"
-            ]
-          },
-          {
-            "sentence": "I am extremely __________ for all the support I received.",
-            "accepted": [
-              "grateful"
-            ]
-          },
-          {
-            "sentence": "He became __________ when the same unknown number called five times.",
-            "accepted": [
-              "suspicious"
-            ]
-          },
-          {
-            "sentence": "Maya was __________ after sending the message to the wrong group chat.",
-            "accepted": [
+            "sentence": "I felt so ___ when I finally passed the driving test after failing twice.",
+            "options": [
+              "relieved",
               "embarrassed"
-            ]
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "Many employees feel __________ when they have too many tasks at once.",
-            "accepted": [
-              "overwhelmed"
-            ]
-          },
-          {
-            "sentence": "I was __________ to hear that the medical test showed nothing serious.",
-            "accepted": [
-              "relieved"
-            ]
-          },
-          {
-            "sentence": "The residents are __________ about the planned rent increase.",
-            "accepted": [
-              "concerned"
-            ]
-          },
-          {
-            "sentence": "After practising for several weeks, I felt more __________ during the presentation.",
-            "accepted": [
+            "sentence": "She felt ___ when nobody remembered her birthday.",
+            "options": [
+              "disappointed",
               "confident"
-            ]
+            ],
+            "correctIndex": 0
           },
           {
-            "sentence": "I became __________ when the app crashed for the third time.",
-            "accepted": [
-              "frustrated"
-            ]
+            "sentence": "I am extremely ___ for all the support I received during a difficult year.",
+            "options": [
+              "grateful",
+              "suspicious"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "He became ___ when the same unknown number called five times in a row.",
+            "options": [
+              "suspicious",
+              "proud"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "Maya was ___ after accidentally sending the private message to the whole group chat.",
+            "options": [
+              "embarrassed",
+              "disappointed"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "Many employees feel ___ when they are given five urgent tasks at once.",
+            "options": [
+              "overwhelmed",
+              "grateful"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "After weeks of worry, I was ___ to hear that the medical test showed nothing serious.",
+            "options": [
+              "relieved",
+              "envious"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "The residents are ___ about the planned rent increase next year.",
+            "options": [
+              "concerned",
+              "embarrassed"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "After practising for several weeks, I felt much more ___ during the presentation.",
+            "options": [
+              "confident",
+              "overwhelmed"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "I became genuinely ___ when the app crashed for the third time in an hour.",
+            "options": [
+              "frustrated",
+              "proud"
+            ],
+            "correctIndex": 0
           }
-        ],
-        "bank": [
-          "relieved",
-          "frustrated",
-          "embarrassed",
-          "suspicious",
-          "disappointed",
-          "grateful",
-          "confident",
-          "overwhelmed",
-          "proud",
-          "concerned"
         ]
       },
       {
@@ -2786,6 +4502,12 @@ const CATEGORIES = [
         "title": "Övning 2",
         "instruction": "Knyt ihop meningarna med and, but, because eller so.",
         "type": "lucktext_smallset",
+        "bank": [
+          "and",
+          "but",
+          "because",
+          "so"
+        ],
         "items": [
           {
             "sentence": "I wanted to attend the festival, __________ the tickets were too expensive.",
@@ -2842,17 +4564,11 @@ const CATEGORIES = [
             ]
           },
           {
-            "sentence": "Many world leaders ask for people’s trust, __________ trust has to be earned.",
+            "sentence": "Many world leaders ask for people's trust, __________ trust has to be earned.",
             "accepted": [
               "but"
             ]
           }
-        ],
-        "bank": [
-          "and",
-          "but",
-          "because",
-          "so"
         ]
       },
       {
@@ -2860,6 +4576,13 @@ const CATEGORIES = [
         "title": "Övning 3",
         "instruction": "Välj should, must, mustn't, can eller can't.",
         "type": "lucktext_smallset",
+        "bank": [
+          "should",
+          "must",
+          "mustn't",
+          "can",
+          "can't"
+        ],
         "items": [
           {
             "sentence": "You __________ show identification when you collect the package. It is required.",
@@ -2870,7 +4593,7 @@ const CATEGORIES = [
           {
             "sentence": "You __________ share your password with anyone.",
             "accepted": [
-              "mustnt"
+              "mustn't"
             ]
           },
           {
@@ -2888,7 +4611,7 @@ const CATEGORIES = [
           {
             "sentence": "You __________ park here. The entrance must remain clear.",
             "accepted": [
-              "cant"
+              "can't"
             ]
           },
           {
@@ -2912,7 +4635,7 @@ const CATEGORIES = [
           {
             "sentence": "We __________ ignore the problem simply because it is uncomfortable.",
             "accepted": [
-              "mustnt"
+              "mustn't"
             ]
           },
           {
@@ -2921,21 +4644,795 @@ const CATEGORIES = [
               "should"
             ]
           }
-        ],
-        "bank": [
-          "should",
-          "must",
-          "mustn't",
-          "can",
-          "can't"
+        ]
+      },
+      {
+        "id": "kanslor-4",
+        "title": "Övning 4",
+        "instruction": "Välj rätt ord: should, must, can eller can't.",
+        "type": "flerval_inline",
+        "items": [
+          {
+            "sentence": "You ___ be eighteen to buy alcohol here — it's the law.",
+            "options": [
+              "must",
+              "should"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "You ___ try that new bakery, it's really good.",
+            "options": [
+              "should",
+              "must"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "I ___ speak three languages.",
+            "options": [
+              "can",
+              "should"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "Sorry, I ___ come tonight — I already have plans.",
+            "options": [
+              "can't",
+              "shouldn't"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "You really ___ apologise to her.",
+            "options": [
+              "should",
+              "can"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "Passengers ___ fasten their seatbelts before takeoff.",
+            "options": [
+              "must",
+              "should"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "We ___ finish this by Friday if we work together.",
+            "options": [
+              "can",
+              "must"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "You ___ smoke inside the building — it's against the rules.",
+            "options": [
+              "can't",
+              "shouldn't"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "I think you ___ ask for a second opinion.",
+            "options": [
+              "should",
+              "must"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "All visitors ___ sign in at reception.",
+            "options": [
+              "must",
+              "can"
+            ],
+            "correctIndex": 0
+          }
+        ]
+      },
+      {
+        "id": "kanslor-5",
+        "title": "Övning 5",
+        "instruction": "Sätt orden i rätt ordning så det blir ett korrekt råd eller påstående.",
+        "type": "ordna",
+        "items": [
+          {
+            "chips": [
+              "should",
+              "you",
+              "see",
+              "a doctor"
+            ],
+            "target": "You should see a doctor.",
+            "correctOrder": [
+              1,
+              0,
+              2,
+              3
+            ]
+          },
+          {
+            "chips": [
+              "must",
+              "wear",
+              "a helmet",
+              "you"
+            ],
+            "target": "You must wear a helmet.",
+            "correctOrder": [
+              3,
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "chips": [
+              "can't",
+              "park",
+              "you",
+              "here"
+            ],
+            "target": "You can't park here.",
+            "correctOrder": [
+              2,
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "chips": [
+              "should",
+              "get",
+              "we",
+              "some rest"
+            ],
+            "target": "We should get some rest.",
+            "correctOrder": [
+              2,
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "chips": [
+              "mustn't",
+              "be",
+              "you",
+              "late"
+            ],
+            "target": "You mustn't be late.",
+            "correctOrder": [
+              2,
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "chips": [
+              "can",
+              "help",
+              "I",
+              "you"
+            ],
+            "target": "I can help you.",
+            "correctOrder": [
+              2,
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "chips": [
+              "should",
+              "apologise",
+              "he",
+              "probably"
+            ],
+            "target": "He should probably apologise.",
+            "correctOrder": [
+              2,
+              0,
+              3,
+              1
+            ]
+          },
+          {
+            "chips": [
+              "must",
+              "the rules",
+              "we",
+              "follow"
+            ],
+            "target": "We must follow the rules.",
+            "correctOrder": [
+              2,
+              0,
+              3,
+              1
+            ]
+          },
+          {
+            "chips": [
+              "shouldn't",
+              "worry",
+              "you",
+              "so much"
+            ],
+            "target": "You shouldn't worry so much.",
+            "correctOrder": [
+              2,
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "chips": [
+              "can",
+              "leave",
+              "early",
+              "you"
+            ],
+            "target": "You can leave early.",
+            "correctOrder": [
+              3,
+              0,
+              1,
+              2
+            ]
+          }
         ]
       }
     ]
   },
   {
-    "id": "kat10",
-    "icon": "…",
-    "title": "Kategori 10"
+    "id": "erfarenheter",
+    "icon": "🧳",
+    "title": "Prata om erfarenheter",
+    "explanation": {
+      "text": "Förklaring och exempel för den här kategorin kommer snart."
+    },
+    "exercises": [
+      {
+        "id": "erfarenheter-1",
+        "title": "Övning 1",
+        "instruction": "Välj rätt form: have eller has been.",
+        "type": "flerval_inline",
+        "items": [
+          {
+            "sentence": "I ___ been to Japan twice.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "She ___ never been on a plane.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "We ___ already been to that restaurant.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "He ___ been very busy this week.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "They ___ been friends since school.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "My sister ___ been abroad many times.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "You ___ been very helpful today.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "The players ___ been practising all morning.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "It ___ been a long day.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "My parents ___ been retired for five years.",
+            "options": [
+              "have",
+              "has"
+            ],
+            "correctIndex": 0
+          }
+        ]
+      },
+      {
+        "id": "erfarenheter-2",
+        "title": "Övning 2",
+        "instruction": "Skriv verbet inom parentes i presens perfekt (have/has + perfekt particip).",
+        "type": "lucktext_hint",
+        "items": [
+          {
+            "sentence": "I ___ my homework.",
+            "hint": "finish",
+            "accepted": [
+              "have finished"
+            ]
+          },
+          {
+            "sentence": "She ___ to Paris.",
+            "hint": "be",
+            "accepted": [
+              "has been"
+            ]
+          },
+          {
+            "sentence": "We ___ that film already.",
+            "hint": "see",
+            "accepted": [
+              "have seen"
+            ]
+          },
+          {
+            "sentence": "He ___ his phone.",
+            "hint": "lose",
+            "accepted": [
+              "has lost"
+            ]
+          },
+          {
+            "sentence": "They ___ the news.",
+            "hint": "hear",
+            "accepted": [
+              "have heard"
+            ]
+          },
+          {
+            "sentence": "We ___ the tickets.",
+            "hint": "buy",
+            "accepted": [
+              "have bought"
+            ]
+          },
+          {
+            "sentence": "He ___ his keys somewhere.",
+            "hint": "leave",
+            "accepted": [
+              "has left"
+            ]
+          },
+          {
+            "sentence": "I ___ this book twice.",
+            "hint": "read",
+            "accepted": [
+              "have read"
+            ]
+          },
+          {
+            "sentence": "She ___ her mind.",
+            "hint": "change",
+            "accepted": [
+              "has changed"
+            ]
+          },
+          {
+            "sentence": "They ___ the whole cake.",
+            "hint": "eat",
+            "accepted": [
+              "have eaten"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "erfarenheter-3",
+        "title": "Övning 3",
+        "instruction": "Välj rätt ord: ever eller never.",
+        "type": "flerval_inline",
+        "items": [
+          {
+            "sentence": "Have you ___ been to New York?",
+            "options": [
+              "ever",
+              "never"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "I have ___ tried sushi before.",
+            "options": [
+              "ever",
+              "never"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "Has she ___ met your parents?",
+            "options": [
+              "ever",
+              "never"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "We have ___ seen anything like it.",
+            "options": [
+              "ever",
+              "never"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "Have they ___ visited Rome?",
+            "options": [
+              "ever",
+              "never"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "He has ___ been late for work.",
+            "options": [
+              "ever",
+              "never"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "Have you ___ read this book?",
+            "options": [
+              "ever",
+              "never"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "I have ___ forgotten her birthday.",
+            "options": [
+              "ever",
+              "never"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "Has your brother ___ lived abroad?",
+            "options": [
+              "ever",
+              "never"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "We have ___ had any problems with it.",
+            "options": [
+              "ever",
+              "never"
+            ],
+            "correctIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "erfarenheter-4",
+        "title": "Övning 4",
+        "instruction": "Välj rätt ord: already, yet eller just.",
+        "type": "flerval_inline",
+        "items": [
+          {
+            "sentence": "I have ___ finished my homework.",
+            "options": [
+              "already",
+              "yet"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "Have you finished the report ___?",
+            "options": [
+              "already",
+              "yet"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "She hasn't called me ___.",
+            "options": [
+              "yet",
+              "already"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "We have ___ eaten, thanks — no need to cook for us.",
+            "options": [
+              "already",
+              "yet"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "He has ___ left the office, so you missed him.",
+            "options": [
+              "just",
+              "yet"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "I haven't seen that film ___.",
+            "options": [
+              "yet",
+              "already"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "They have ___ arrived at the airport.",
+            "options": [
+              "already",
+              "yet"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "Have you had breakfast ___?",
+            "options": [
+              "already",
+              "yet"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "sentence": "The bus has ___ left — look, there it goes!",
+            "options": [
+              "just",
+              "yet"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "sentence": "We haven't decided ___ where to go.",
+            "options": [
+              "yet",
+              "already"
+            ],
+            "correctIndex": 0
+          }
+        ]
+      },
+      {
+        "id": "erfarenheter-5",
+        "title": "Övning 5",
+        "instruction": "Sätt orden i rätt ordning så det blir en korrekt mening.",
+        "type": "ordna",
+        "items": [
+          {
+            "chips": [
+              "ever",
+              "have",
+              "to",
+              "Italy",
+              "you",
+              "been"
+            ],
+            "target": "Have you ever been to Italy?",
+            "correctOrder": [
+              1,
+              4,
+              0,
+              5,
+              2,
+              3
+            ]
+          },
+          {
+            "chips": [
+              "never",
+              "I",
+              "a",
+              "horse",
+              "ridden",
+              "have"
+            ],
+            "target": "I have never ridden a horse.",
+            "correctOrder": [
+              1,
+              5,
+              0,
+              4,
+              2,
+              3
+            ]
+          },
+          {
+            "chips": [
+              "finished",
+              "already",
+              "the",
+              "project",
+              "we",
+              "have"
+            ],
+            "target": "We have already finished the project.",
+            "correctOrder": [
+              4,
+              5,
+              1,
+              0,
+              2,
+              3
+            ]
+          },
+          {
+            "chips": [
+              "seen",
+              "has",
+              "she",
+              "that",
+              "film",
+              "never"
+            ],
+            "target": "She has never seen that film.",
+            "correctOrder": [
+              2,
+              1,
+              5,
+              0,
+              3,
+              4
+            ]
+          },
+          {
+            "chips": [
+              "just",
+              "arrived",
+              "the",
+              "guests",
+              "have"
+            ],
+            "target": "The guests have just arrived.",
+            "correctOrder": [
+              2,
+              3,
+              4,
+              0,
+              1
+            ]
+          },
+          {
+            "chips": [
+              "lost",
+              "has",
+              "his",
+              "phone",
+              "he"
+            ],
+            "target": "He has lost his phone.",
+            "correctOrder": [
+              4,
+              1,
+              0,
+              2,
+              3
+            ]
+          },
+          {
+            "chips": [
+              "tried",
+              "you",
+              "sushi",
+              "have",
+              "ever"
+            ],
+            "target": "Have you ever tried sushi?",
+            "correctOrder": [
+              3,
+              1,
+              4,
+              0,
+              2
+            ]
+          },
+          {
+            "chips": [
+              "not",
+              "we",
+              "have",
+              "decided",
+              "yet"
+            ],
+            "target": "We have not decided yet.",
+            "correctOrder": [
+              1,
+              2,
+              0,
+              3,
+              4
+            ]
+          },
+          {
+            "chips": [
+              "been",
+              "it",
+              "a",
+              "has",
+              "long",
+              "day"
+            ],
+            "target": "It has been a long day.",
+            "correctOrder": [
+              1,
+              3,
+              0,
+              2,
+              4,
+              5
+            ]
+          },
+          {
+            "chips": [
+              "many",
+              "visited",
+              "countries",
+              "have",
+              "they"
+            ],
+            "target": "They have visited many countries.",
+            "correctOrder": [
+              4,
+              3,
+              1,
+              0,
+              2
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "kat11",
@@ -3292,6 +5789,54 @@ function normalizeAnswer(s) {
   return s.toLowerCase().trim().replace(/[.,!?;:"'’]/g, "").replace(/\s+/g, " ");
 }
 
+// ============ ENKLA EGNA ILLUSTRATIONER (ingen extern bild, inga upphovsrättsfrågor) ============
+function sceneSVG(kind, position) {
+  const W = 260, H = 170, floorY = 150;
+  const tableX = 90, tableY = 105, tableW = 80, tableH = 10, legH = 35;
+  const boxX = 95, boxY = 80, boxW = 70, boxH = 55;
+
+  const table = `
+    <rect x="${tableX}" y="${tableY}" width="${tableW}" height="${tableH}" rx="2" fill="var(--accent-2)"/>
+    <rect x="${tableX + 6}" y="${tableY + tableH}" width="6" height="${legH}" fill="var(--text-muted)"/>
+    <rect x="${tableX + tableW - 12}" y="${tableY + tableH}" width="6" height="${legH}" fill="var(--text-muted)"/>`;
+
+  function cat(cx, cy, scale) {
+    return `
+      <g transform="translate(${cx},${cy}) scale(${scale})">
+        <ellipse cx="0" cy="0" rx="16" ry="11" fill="var(--accent)"/>
+        <circle cx="14" cy="-8" r="8" fill="var(--accent)"/>
+        <polygon points="8,-14 12,-22 16,-13" fill="var(--accent)"/>
+        <polygon points="16,-14 20,-22 22,-12" fill="var(--accent)"/>
+        <path d="M -14 2 Q -26 -6 -20 -16" stroke="var(--accent)" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>`;
+  }
+
+  const box = `
+    <rect x="${boxX}" y="${boxY}" width="${boxW}" height="${boxH}" fill="none" stroke="var(--accent-2)" stroke-width="4"/>`;
+  function ball(cx, cy) {
+    return `<circle cx="${cx}" cy="${cy}" r="14" fill="var(--accent)"/>`;
+  }
+
+  let extra = "";
+  if (kind === "cat") {
+    const groundY = floorY;
+    if (position === "on") extra = table + cat(tableX + tableW / 2, tableY - 6, 0.9);
+    else if (position === "under") extra = table + cat(tableX + tableW / 2, groundY - 8, 0.85);
+    else if (position === "next_to") extra = table + cat(tableX + tableW + 34, groundY - 8, 1);
+    else if (position === "behind") extra = cat(tableX + tableW / 2, tableY - 2, 0.65) + table;
+    else if (position === "in_front_of") extra = table + cat(tableX + tableW / 2, groundY + 6, 1.1);
+  } else if (kind === "ball") {
+    if (position === "inside") extra = box + ball(boxX + boxW / 2, boxY + boxH / 2 + 8);
+    else if (position === "above") extra = ball(boxX + boxW / 2, boxY - 24) + box;
+    else if (position === "below") extra = box + ball(boxX + boxW / 2, boxY + boxH + 26);
+  }
+
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%; max-width:260px; display:block; margin:0 auto 8px;">
+    <line x1="0" y1="${floorY}" x2="${W}" y2="${floorY}" stroke="var(--border)" stroke-width="2"/>
+    ${extra}
+  </svg>`;
+}
+
 function buildSetExercise(categoryId, ex) {
   const container = document.createElement("div");
 
@@ -3438,6 +5983,34 @@ function buildSetExercise(categoryId, ex) {
       });
     }
 
+    else if (ex.type === "bild_flerval") {
+      const imgWrap = document.createElement("div");
+      imgWrap.innerHTML = sceneSVG(item.object, item.position);
+      row.appendChild(imgWrap);
+      const p = document.createElement("p");
+      p.style.cssText = "font-size:14px; margin:0 0 6px; text-align:center;";
+      p.append(item.question);
+      p.appendChild(resultMark);
+      row.appendChild(p);
+      const optWrap = document.createElement("div");
+      optWrap.className = "options";
+      optWrap.style.justifyContent = "center";
+      let chosen = null;
+      item.options.forEach((opt, i) => {
+        const b = document.createElement("button");
+        b.className = "opt-btn";
+        b.textContent = opt;
+        b.onclick = () => {
+          chosen = i;
+          optWrap.querySelectorAll("button").forEach(x => { x.style.background = ""; x.style.color = ""; });
+          b.style.background = "var(--accent)"; b.style.color = "var(--accent-contrast)";
+        };
+        optWrap.appendChild(b);
+      });
+      row.appendChild(optWrap);
+      getResult = () => ({ correct: chosen === item.correctIndex, correctText: item.options[item.correctIndex] });
+    }
+
     else if (ex.type === "flerval_abc") {
       const p = document.createElement("p");
       p.style.cssText = "font-size:14px; margin:0 0 6px;";
@@ -3463,7 +6036,20 @@ function buildSetExercise(categoryId, ex) {
       getResult = () => ({ correct: chosen === item.correctIndex, correctText: letters[item.correctIndex] + ") " + item.options[item.correctIndex] });
     }
 
-    itemGetters.push({ getResult, resultMark });
+    // Facit-förklaring: unik för frågan (item.why) om den finns, annars övningens
+    // gemensamma regelförklaring (ex.rule) om den finns, annars ingen förklaring alls.
+    const originalGetResult = getResult;
+    getResult = () => {
+      const r = originalGetResult();
+      r.why = item.why || ex.rule || null;
+      return r;
+    };
+
+    const whyNote = document.createElement("p");
+    whyNote.style.cssText = "display:none; font-size:12px; color:var(--text-secondary); background:var(--card-alt); border-radius:6px; padding:6px 8px; margin:4px 0 0;";
+    row.appendChild(whyNote);
+
+    itemGetters.push({ getResult, resultMark, whyNote });
     list.appendChild(row);
   });
 
@@ -3478,15 +6064,22 @@ function buildSetExercise(categoryId, ex) {
 
   checkBtn.onclick = () => {
     let correctCount = 0;
-    itemGetters.forEach(({ getResult, resultMark }) => {
+    itemGetters.forEach(({ getResult, resultMark, whyNote }) => {
       const r = getResult();
       if (r.correct) {
         correctCount++;
         resultMark.textContent = "✓";
         resultMark.style.color = "var(--success-text)";
+        whyNote.style.display = "none";
       } else {
         resultMark.textContent = "✗ rätt svar: " + r.correctText;
         resultMark.style.color = "var(--danger-text)";
+        if (r.why) {
+          whyNote.textContent = r.why;
+          whyNote.style.display = "block";
+        } else {
+          whyNote.style.display = "none";
+        }
       }
     });
     const total = itemGetters.length;
