@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="sv" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bibliotek – Engelska</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+
+<!--
+  =====================================================================
+  BIBLIOTEK — referensmaterial (PDF/bilder) att rabbla eller slå upp
+  =====================================================================
+  Kräver ingen inloggning, ingen Firebase-koppling.
+
+  SÅ HÄR LÄGGER DU TILL FLER POSTER:
+  Leta upp LIBRARY-listan nedan i koden. Varje post är ett objekt:
+    {
+      id: "kort-unikt-namn",       (används för direktlänkar, se nedan)
+      title: "Visningsnamn",
+      tag: "Kategori-etikett",      (visas som liten rubrik ovanför titeln)
+      type: "pdf" eller "image",
+      file: "bibliotek/filnamn.pdf" (sökväg till filen i repot)
+    }
+  Ladda upp filerna i en mapp som heter "bibliotek/" i repot (samma
+  sätt som bilder/videor: Add file → Upload files, skriv "bibliotek/
+  filnamn.pdf" i filnamnsfältet innan uppladdning).
+
+  DIREKTLÄNKAR FRÅN EN ÖVNINGS FÖRKLARING:
+  I index.html kan en kategoris "explanation"-objekt få ett fält
+  "libraryLink": { "id": "posten-id", "label": "Visningstext på länken" }
+  som visar en liten länk ner till just den posten i biblioteket.
+  =====================================================================
+-->
+
+<style>
+  :root[data-theme="light"] {
+    --bg: #F5EFE4; --card: #FFFFFF; --card-alt: #FBF8F3;
+    --border: #D9CFBB; --border-dashed: #D9D2C4; --card-shadow: rgba(90, 70, 30, 0.10);
+    --text: #2C2620; --text-secondary: #6B6255; --text-muted: #B4AFA2;
+    --accent: #0F6E56; --accent-2: #B5501E; --accent-contrast: #FFFFFF;
+  }
+  :root[data-theme="warm"] {
+    --bg: #F7E6D5; --card: #FFF8ED; --card-alt: #F3E1CC;
+    --border: #D9AD73; --border-dashed: #DFC095; --card-shadow: rgba(120, 65, 15, 0.14);
+    --text: #4A2E1A; --text-secondary: #8A6A4C; --text-muted: #B79A78;
+    --accent: #B5501E; --accent-2: #7A3E0B; --accent-contrast: #FFF7EE;
+  }
+  :root[data-theme="dark"] {
+    --bg: #1C1B1F; --card: #313036; --card-alt: #232227;
+    --border: #4C4851; --border-dashed: #423F45; --card-shadow: rgba(0, 0, 0, 0.35);
+    --text: #F0EDE8; --text-secondary: #B3ADA4; --text-muted: #766F65;
+    --accent: #5DCAA5; --accent-2: #E08A5C; --accent-contrast: #14231D;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Atkinson Hyperlegible", "Segoe UI", sans-serif; line-height: 1.6;
+  }
+  h1 { font-family: "Fraunces", Georgia, serif; font-weight: 600; margin: 0; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 20px 80px; }
+
+  .theme-switch { display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 18px; }
+  .theme-switch button {
+    background: var(--card); border: 1px solid var(--border); color: var(--text-secondary);
+    border-radius: 20px; padding: 5px 12px; font-size: 12px; cursor: pointer;
+  }
+  .theme-switch button[aria-pressed="true"] { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); }
+
+  .back { background: none; border: none; color: var(--text-secondary); font-size: 13px; cursor: pointer; padding: 0 0 14px; }
+
+  .hero { margin-bottom: 18px; }
+  .hero h1 { font-size: 24px; margin-bottom: 4px; }
+  .hero p { color: var(--text-secondary); font-size: 13px; margin: 0; }
+
+  #searchBox {
+    width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--card); color: var(--text); font-size: 14px; font-family: inherit; margin-bottom: 18px;
+  }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .item-card-wide { grid-column: 1 / -1; }
+  .item-card table { border-collapse: collapse; width: 100%; font-size: 13px; margin-top: 4px; }
+  .item-card table th, .item-card table td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--border); }
+  .item-card table th { color: var(--text-secondary); font-weight: 600; font-size: 12px; }
+  .item-card .group-title { font-size: 12px; color: var(--text-muted); margin: 12px 0 2px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .item-card .group-title:first-child { margin-top: 4px; }
+  .item-card {
+    border: 1.5px solid var(--border); border-radius: 12px; padding: 16px; background: var(--card);
+    box-shadow: 0 2px 6px var(--card-shadow); scroll-margin-top: 20px;
+  }
+  .item-card.highlight { border-color: var(--accent); }
+  .item-card .tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-muted); margin: 0 0 4px; }
+  .item-card .title { font-size: 14px; font-weight: 600; margin: 0 0 10px; }
+  .item-card a.open-link { font-size: 13px; color: var(--accent); text-decoration: none; }
+  .item-card img.preview { width: 100%; border-radius: 8px; margin-bottom: 8px; display: block; }
+
+  #emptyState { text-align: center; padding: 40px 20px; color: var(--text-secondary); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="theme-switch" role="group" aria-label="Välj färgtema">
+    <button onclick="setTheme('light')" id="theme-light" aria-pressed="true">Ljust</button>
+    <button onclick="setTheme('warm')" id="theme-warm" aria-pressed="false">Varmt</button>
+    <button onclick="setTheme('dark')" id="theme-dark" aria-pressed="false">Mörkt</button>
+  </div>
+
+  <a class="back" href="index.html">← Tillbaka till träningen</a>
+
+  <div class="hero">
+    <h1>Bibliotek</h1>
+    <p>Listor och referensmaterial att rabbla eller slå upp.</p>
+  </div>
+
+  <input type="text" id="searchBox" placeholder="Sök... t.ex. &quot;verb&quot; eller &quot;preposition&quot;" oninput="renderLibrary()">
+
+  <div class="grid" id="libraryGrid"></div>
+  <p id="emptyState" style="display:none;">Inga träffar.</p>
+
+</div>
+
+<script>
+function setTheme(name) {
+  document.documentElement.setAttribute("data-theme", name);
+  ["light", "warm", "dark"].forEach(t =>
+    document.getElementById("theme-" + t).setAttribute("aria-pressed", t === name ? "true" : "false")
+  );
+  localStorage.setItem("engelska-tema", name);
+}
+setTheme(localStorage.getItem("engelska-tema") || "light");
+
+function toggleLibraryContent(id, btn) {
+  const el = document.getElementById(id);
+  const open = el.style.display === "block";
+  el.style.display = open ? "none" : "block";
+  btn.textContent = open ? "Visa lista →" : "Dölj lista";
+}
+
+// ============ BIBLIOTEKSDATA ============
+// Se instruktionerna högst upp i filen för hur du lägger till fler poster.
+const LIBRARY = [
+  {
+    "id": "oregelbundna-verb",
+    "title": "Oregelbundna verb — grupperade för att rabbla",
+    "tag": "Verb",
+    "type": "text",
+    "content": "<p class=\"group-title\">Rimfamiljen (i–a–u)</p><table><tr><th>Grundform</th><th>Dåtid</th><th>Perfekt particip</th></tr><tr><td>sing</td><td>sang</td><td>sung</td></tr><tr><td>ring</td><td>rang</td><td>rung</td></tr><tr><td>swim</td><td>swam</td><td>swum</td></tr><tr><td>begin</td><td>began</td><td>begun</td></tr><tr><td>drink</td><td>drank</td><td>drunk</td></tr></table><p class=\"group-title\">Ändras helt</p><table><tr><th>Grundform</th><th>Dåtid</th><th>Perfekt particip</th></tr><tr><td>go</td><td>went</td><td>gone</td></tr><tr><td>see</td><td>saw</td><td>seen</td></tr><tr><td>eat</td><td>ate</td><td>eaten</td></tr><tr><td>give</td><td>gave</td><td>given</td></tr><tr><td>take</td><td>took</td><td>taken</td></tr><tr><td>know</td><td>knew</td><td>known</td></tr><tr><td>write</td><td>wrote</td><td>written</td></tr><tr><td>speak</td><td>spoke</td><td>spoken</td></tr><tr><td>break</td><td>broke</td><td>broken</td></tr><tr><td>choose</td><td>chose</td><td>chosen</td></tr></table><p class=\"group-title\">Dåtid och particip lika (på -t/-d)</p><table><tr><th>Grundform</th><th>Dåtid</th><th>Perfekt particip</th></tr><tr><td>buy</td><td>bought</td><td>bought</td></tr><tr><td>bring</td><td>brought</td><td>brought</td></tr><tr><td>think</td><td>thought</td><td>thought</td></tr><tr><td>catch</td><td>caught</td><td>caught</td></tr><tr><td>teach</td><td>taught</td><td>taught</td></tr><tr><td>find</td><td>found</td><td>found</td></tr><tr><td>have</td><td>had</td><td>had</td></tr><tr><td>make</td><td>made</td><td>made</td></tr><tr><td>say</td><td>said</td><td>said</td></tr><tr><td>pay</td><td>paid</td><td>paid</td></tr><tr><td>leave</td><td>left</td><td>left</td></tr><tr><td>feel</td><td>felt</td><td>felt</td></tr><tr><td>keep</td><td>kept</td><td>kept</td></tr><tr><td>sleep</td><td>slept</td><td>slept</td></tr><tr><td>meet</td><td>met</td><td>met</td></tr><tr><td>tell</td><td>told</td><td>told</td></tr><tr><td>sell</td><td>sold</td><td>sold</td></tr><tr><td>send</td><td>sent</td><td>sent</td></tr><tr><td>spend</td><td>spent</td><td>spent</td></tr><tr><td>lose</td><td>lost</td><td>lost</td></tr><tr><td>hear</td><td>heard</td><td>heard</td></tr></table><p class=\"group-title\">Alla tre former lika</p><table><tr><th>Grundform</th><th>Dåtid</th><th>Perfekt particip</th></tr><tr><td>put</td><td>put</td><td>put</td></tr><tr><td>cut</td><td>cut</td><td>cut</td></tr><tr><td>let</td><td>let</td><td>let</td></tr><tr><td>read</td><td>read</td><td>read</td></tr></table><p class=\"group-title\">Övriga vanliga</p><table><tr><th>Grundform</th><th>Dåtid</th><th>Perfekt particip</th></tr><tr><td>come</td><td>came</td><td>come</td></tr><tr><td>become</td><td>became</td><td>become</td></tr><tr><td>run</td><td>ran</td><td>run</td></tr></table>"
+  },
+  {
+    "id": "hjalpverb",
+    "title": "Hjälpverb per tid",
+    "tag": "Grammatik",
+    "type": "text",
+    "content": "<table>\n<tr><th>Tid</th><th>Hjälpverb</th><th>Exempel</th></tr>\n<tr><td>Presens</td><td>do / does</td><td>Do you like coffee?</td></tr>\n<tr><td>Dåtid</td><td>did</td><td>Did you call?</td></tr>\n<tr><td>Pågående, nu</td><td>am / is / are</td><td>Are you listening?</td></tr>\n<tr><td>Pågående, dåtid</td><td>was / were</td><td>Was he sleeping?</td></tr>\n<tr><td>Perfekt (erfarenhet)</td><td>have / has</td><td>Have you finished?</td></tr>\n<tr><td>Framtid, plan</td><td>am / is / are going to</td><td>Are you going to stay?</td></tr>\n<tr><td>Framtid, löfte/beslut</td><td>will</td><td>Will you help me?</td></tr>\n</table>"
+  },
+  {
+    "id": "frageord",
+    "title": "Frågeord — snabböversikt",
+    "tag": "Frågor",
+    "type": "text",
+    "content": "<table>\n<tr><th>Frågeord</th><th>Frågar om</th><th>Exempel</th></tr>\n<tr><td>Who</td><td>person</td><td>Who called you?</td></tr>\n<tr><td>What</td><td>sak/handling</td><td>What are you doing?</td></tr>\n<tr><td>Where</td><td>plats</td><td>Where do you live?</td></tr>\n<tr><td>When</td><td>tid</td><td>When does it start?</td></tr>\n<tr><td>Why</td><td>anledning</td><td>Why did you leave?</td></tr>\n<tr><td>Which</td><td>val mellan bestämda alternativ</td><td>Which one do you want?</td></tr>\n<tr><td>How</td><td>sätt/metod</td><td>How does this work?</td></tr>\n<tr><td>How much</td><td>mängd (otaligt)</td><td>How much does it cost?</td></tr>\n<tr><td>How many</td><td>antal (taligt)</td><td>How many people came?</td></tr>\n<tr><td>How often</td><td>frekvens</td><td>How often do you train?</td></tr>\n</table>"
+  },
+  {
+    "id": "modalverb",
+    "title": "Modalverb — should / must / can",
+    "tag": "Grammatik",
+    "type": "text",
+    "content": "<table>\n<tr><th>Ord</th><th>Betydelse</th><th>Exempel</th></tr>\n<tr><td>should</td><td>råd</td><td>You should rest.</td></tr>\n<tr><td>must</td><td>tvång / regel</td><td>You must wear a seatbelt.</td></tr>\n<tr><td>mustn't</td><td>förbud</td><td>You mustn't smoke here.</td></tr>\n<tr><td>can</td><td>förmåga / tillåtelse</td><td>I can swim. / Can I sit here?</td></tr>\n<tr><td>can't</td><td>oförmåga / förbud</td><td>I can't come tonight.</td></tr>\n</table>"
+  },
+  {
+    "id": "komparativ",
+    "title": "Oregelbundna komparativ/superlativ",
+    "tag": "Jämförelser",
+    "type": "text",
+    "content": "<table>\n<tr><th>Grundform</th><th>Komparativ</th><th>Superlativ</th></tr>\n<tr><td>good</td><td>better</td><td>best</td></tr>\n<tr><td>bad</td><td>worse</td><td>worst</td></tr>\n<tr><td>far</td><td>further / farther</td><td>furthest / farthest</td></tr>\n<tr><td>little</td><td>less</td><td>least</td></tr>\n<tr><td>much / many</td><td>more</td><td>most</td></tr>\n</table>"
+  },
+  {
+    "id": "vardagsfraser",
+    "title": "Vardagsfraser — liten parlör",
+    "tag": "Situationer",
+    "type": "text",
+    "content": "<p class=\"group-title\">Café / restaurang</p><table><tr><td>Could I have a coffee, please?</td></tr><tr><td>Could we have the bill?</td></tr><tr><td>I have a reservation.</td></tr><tr><td>Could you recommend something?</td></tr></table><p class=\"group-title\">Affär</p><table><tr><td>Could I try this on?</td></tr><tr><td>I would like to return this.</td></tr><tr><td>Could I get a receipt, please?</td></tr></table><p class=\"group-title\">Fråga om hjälp / be om något artigt</p><table><tr><td>Could you help me with...?</td></tr><tr><td>Would you mind...?</td></tr><tr><td>Excuse me, how do I get to...?</td></tr><tr><td>Sorry, could you say that again?</td></tr></table>"
+  }
+];
+
+function renderLibrary() {
+  const search = document.getElementById("searchBox").value.trim().toLowerCase();
+  const params = new URLSearchParams(window.location.search);
+  const highlightId = params.get("item");
+
+  const filtered = LIBRARY.filter(item =>
+    !search || item.title.toLowerCase().includes(search) || item.tag.toLowerCase().includes(search)
+  );
+
+  const grid = document.getElementById("libraryGrid");
+  const empty = document.getElementById("emptyState");
+  grid.innerHTML = "";
+
+  if (filtered.length === 0) {
+    empty.style.display = "block";
+    return;
+  }
+  empty.style.display = "none";
+
+  filtered.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "item-card" + (item.id === highlightId ? " highlight" : "") + (item.type === "text" ? " item-card-wide" : "");
+    card.id = "item-" + item.id;
+
+    let inner = `<p class="tag">${item.tag}</p><p class="title">${item.title}</p>`;
+    if (item.type === "image") {
+      inner += `<img class="preview" src="${item.file}" alt="">`;
+      inner += `<a class="open-link" href="${item.file}" target="_blank" rel="noopener">Visa i fullstorlek →</a>`;
+    } else if (item.type === "pdf") {
+      inner += `<a class="open-link" href="${item.file}" target="_blank" rel="noopener">Öppna PDF →</a>`;
+    } else if (item.type === "text") {
+      const contentId = "content-" + item.id;
+      inner += `<button class="open-link" style="background:none; border:none; cursor:pointer; font-family:inherit; padding:0;" onclick="toggleLibraryContent('${contentId}', this)">Visa lista →</button>`;
+      inner += `<div id="${contentId}" style="display:none; margin-top:10px;">${item.content}</div>`;
+    }
+    card.innerHTML = inner;
+    grid.appendChild(card);
+  });
+
+  if (highlightId) {
+    const el = document.getElementById("item-" + highlightId);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+
+renderLibrary();
+</script>
+</body>
+</html>
